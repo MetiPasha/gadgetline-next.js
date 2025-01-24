@@ -13,7 +13,6 @@ import {
 import { styled } from "@mui/system";
 import EmailIcon from "@mui/icons-material/Email";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import { BlurLinear } from "@mui/icons-material";
 
 const StyledContainer = styled(Container)(({ theme }) => ({
   display: "flex",
