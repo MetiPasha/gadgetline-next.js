@@ -195,7 +195,8 @@ const RegistrationForm: React.FC = () => {
   return (
     <Container
       sx={{
-        height: "100vh",
+        minHeight: "100vh",
+        width: "100%",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
@@ -204,8 +205,24 @@ const RegistrationForm: React.FC = () => {
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
         backgroundAttachment: "fixed",
+        overflow: "hidden", // اسکرول را مخفی می‌کند
       }}
     >
+      <Box
+        sx={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          backgroundImage: "url('/assets/TechPic.jpg')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          backgroundAttachment: "fixed",
+          zIndex: -1,
+        }}
+      />
       <StyledCard>
         <CardContent>
           <Typography variant="h4" align="center" gutterBottom>
@@ -318,30 +335,6 @@ const RegistrationForm: React.FC = () => {
                 />
               )}
             </FormControl>
-
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={agreed}
-                  onChange={(e) => setAgreed(e.target.checked)}
-                  color="primary"
-                />
-              }
-              label={
-                <Typography variant="body2" sx={{ fontSize: "0.875rem" }}>
-                  با{" "}
-                  <Link href="#" underline="hover">
-                    شرایط استفاده
-                  </Link>{" "}
-                  و{" "}
-                  <Link href="#" underline="hover">
-                    سیاست حفظ حریم خصوصی
-                  </Link>{" "}
-                  موافقم
-                </Typography>
-              }
-              sx={{ mt: 2 }}
-            />
 
             <Button
               fullWidth

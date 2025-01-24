@@ -13,17 +13,24 @@ import {
 import { styled } from "@mui/system";
 import EmailIcon from "@mui/icons-material/Email";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import { BlurLinear } from "@mui/icons-material";
 
 const StyledContainer = styled(Container)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
   padding: theme.spacing(4),
+  position: "relative",
+  zIndex: 1,
 }));
 
 const StyledForm = styled("form")(({ theme }) => ({
   width: "100%",
   marginTop: theme.spacing(1),
+  backgroundColor: "rgba(255, 255, 255, 0.9)",
+  padding: theme.spacing(4),
+  borderRadius: "8px",
+  boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
 }));
 
 const StyledTextField = styled(TextField)(({ theme }) => ({
@@ -102,89 +109,120 @@ const LoginPage = () => {
   };
 
   return (
-    <StyledContainer component="main" maxWidth="xs">
-      <Typography
-        component="h1"
-        variant="h4"
+    <Box
+      sx={{
+        height: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        background: "linear-gradient(135deg, #1976D2, #42A5F5, #BBDEFB)",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        backgroundAttachment: "fixed",
+        position: "relative",
+        overflow: "hidden",
+      }}
+    >
+      <Box
         sx={{
-          mt: 5,
-          mb: 4,
-          fontWeight: "bold",
-          color: "#2F4F4F",
-          textAlign: "center",
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
         }}
-      >
-        ورود
-      </Typography>
-      <StyledForm onSubmit={handleSubmit} noValidate>
-        <StyledTextField
-          variant="outlined"
-          margin="normal"
-          required
-          fullWidth
-          id="email"
-          label="ایمیل"
-          name="email"
-          autoComplete="email"
-          autoFocus
-          value={email}
-          onChange={handleEmailChange}
-          error={!!emailError}
-          helperText={emailError}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <EmailIcon color="action" />
-              </InputAdornment>
-            ),
-          }}
-        />
-        <StyledTextField
-          variant="outlined"
-          margin="normal"
-          required
-          fullWidth
-          name="password"
-          label="رمز عبور"
-          type="password"
-          id="password"
-          autoComplete="current-password"
-          value={password}
-          onChange={handlePasswordChange}
-          error={!!passwordError}
-          helperText={passwordError}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <LockOutlinedIcon color="action" />
-              </InputAdornment>
-            ),
-          }}
-        />
-        <StyledButton
-          type="submit"
-          fullWidth
-          variant="contained"
-          disabled={isLoading}
-        >
-          {isLoading ? <CircularProgress size={24} color="inherit" /> : "ورود"}
-        </StyledButton>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            mt: 2,
-          }}
-        >
-          <StyledLink href="#" variant="body2">
-            فراموشی رمز عبور؟
-          </StyledLink>
-          <StyledRegisterLink href="/auth/register" variant="body2">
-            ثبت نام
-          </StyledRegisterLink>
-        </Box>
-      </StyledForm>
-    </StyledContainer>
+      />
+      <StyledContainer component="main" maxWidth="xs">
+        <StyledForm onSubmit={handleSubmit} noValidate>
+          <Typography
+            component="h1"
+            variant="h4"
+            sx={{
+              mb: 4,
+              fontWeight: "bold",
+              color: "#2F4F4F",
+              textAlign: "center",
+            }}
+          >
+            ورود
+          </Typography>
+          <StyledTextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="email"
+            label="ایمیل"
+            name="email"
+            autoComplete="email"
+            autoFocus
+            value={email}
+            onChange={handleEmailChange}
+            error={!!emailError}
+            helperText={emailError}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <EmailIcon color="action" />
+                </InputAdornment>
+              ),
+            }}
+          />
+          <StyledTextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            label="رمز عبور"
+            type="password"
+            id="password"
+            autoComplete="current-password"
+            value={password}
+            onChange={handlePasswordChange}
+            error={!!passwordError}
+            helperText={passwordError}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <LockOutlinedIcon color="action" />
+                </InputAdornment>
+              ),
+            }}
+          />
+          <StyledButton
+            type="submit"
+            fullWidth
+            variant="contained"
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <CircularProgress size={24} color="inherit" />
+            ) : (
+              "ورود"
+            )}
+          </StyledButton>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              mt: 2,
+            }}
+          >
+            <StyledLink href="#" variant="body2">
+              فراموشی رمز عبور؟
+            </StyledLink>
+            <StyledRegisterLink href="/auth/register" variant="body2">
+              ثبت نام
+            </StyledRegisterLink>
+          </Box>
+        </StyledForm>
+      </StyledContainer>
+    </Box>
   );
 };
 
