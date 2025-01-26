@@ -6,7 +6,7 @@ import { ThemeProvider as MuiThemProvider } from "@mui/material";
 import createCache from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
 import theme from "./theme";
-import { CssBaseline } from "@mui/material"; // اضافه کردن CssBaseline
+import { CssBaseline } from "@mui/material";
 
 const cacheRtl = createCache({
   key: "muirtl",

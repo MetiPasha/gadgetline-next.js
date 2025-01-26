@@ -1,14 +1,14 @@
 import { Box, Typography } from "@mui/material";
-
 import Link from "next/link";
-import Button from "@/components/Button";
+import Button from "@/components/Button"; // استفاده از دکمه‌ای که بر اساس تم است
 import Image from "next/image";
 
 const Cart = () => {
   return (
     <Box>
-      <Typography variant="h6"> سبد خرید</Typography>
+      <Typography variant="h6">سبد خرید</Typography>
 
+      {/* نمایش آیتم‌های سبد */}
       <Box
         sx={{
           display: "flex",
@@ -31,7 +31,7 @@ const Cart = () => {
             }}
           >
             <Typography variant="body1" sx={{ marginLeft: "0.3rem" }}>
-              Headphon Z
+              Headphone Z
             </Typography>
             <Typography
               variant="body2"
@@ -55,17 +55,29 @@ const Cart = () => {
         </Box>
       </Box>
 
+      {/* جمع کل */}
       <Box sx={{ display: "flex", justifyContent: "space-between" }}>
         <Typography>جمع کل</Typography>
         <Typography>100$</Typography>
       </Box>
 
+      {/* دکمه پرداخت */}
       <Button
-        color="#d97d45"
+        color="primary" // استفاده از primary برای تم آبی روشن
         variant="contained"
-        sx={{ width: "100%", marginTop: "1rem" }}
+        sx={{
+          width: "100%",
+          marginTop: "1rem",
+          fontWeight: 700,
+          fontSize: "1rem",
+        }}
       >
-        <Link href="/checkout">پرداخت</Link>
+        <Link
+          href="/checkout"
+          style={{ color: "white", textDecoration: "none" }}
+        >
+          پرداخت
+        </Link>
       </Button>
     </Box>
   );

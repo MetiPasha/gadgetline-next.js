@@ -11,16 +11,19 @@ import {
   Badge,
   Box,
   Drawer,
+  useTheme, // اضافه کردن useTheme
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { AccountCircle, ShoppingCart } from "@mui/icons-material";
 import Cart from "@/components/Cart";
 
 const Header = () => {
+  const theme = useTheme(); // دسترسی به تم
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [cartItems, setCartItems] = useState(1);
   const [cartOpen, setCartOpen] = useState(false);
+
   const handleMenuClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -38,7 +41,12 @@ const Header = () => {
   };
 
   return (
-    <AppBar position="sticky">
+    <AppBar
+      position="sticky"
+      sx={{
+        backgroundColor: theme.palette.primary.main, // رنگ پس‌زمینه آبی پررنگ
+      }}
+    >
       <Toolbar
         sx={{
           display: "flex",
@@ -46,13 +54,22 @@ const Header = () => {
           alignItems: "center",
         }}
       >
+        {/* بخش لوگو و جستجو */}
         <Box sx={{ display: "flex", alignItems: "center" }}>
-          <Typography variant="h4" sx={{ marginRight: "5rem", color: "black" }}>
+          <Typography
+            variant="h4"
+            sx={{
+              marginRight: "5rem",
+              color: theme.palette.secondary.light, // استفاده از رنگ روشن برای متن
+            }}
+          >
             گجت لاین
           </Typography>
 
           <IconButton
-            sx={{ ":hover": { color: "orange" } }}
+            sx={{
+              ":hover": { color: theme.palette.secondary.light }, // رنگ شناور
+            }}
             color="inherit"
             onClick={handleMenuClick}
           >
@@ -77,7 +94,7 @@ const Header = () => {
             onChange={handleSearchChange}
             placeholder="جستجو در گجت لاین..."
             sx={{
-              background: "white",
+              background: theme.palette.background.default, // رنگ پس‌زمینه از تم
               marginLeft: 2,
               flexGrow: 1,
               maxWidth: "31.25rem",
@@ -85,6 +102,7 @@ const Header = () => {
           />
         </Box>
 
+        {/* بخش ورود و سبد خرید */}
         <Box sx={{ display: "flex", alignItems: "center" }}>
           <Box
             sx={{
@@ -97,7 +115,10 @@ const Header = () => {
             <IconButton color="inherit">
               <AccountCircle />
             </IconButton>
-            <Typography variant="body2" sx={{ fontSize: "0.75rem" }}>
+            <Typography
+              variant="body2"
+              sx={{ fontSize: "0.75rem", color: theme.palette.secondary.light }}
+            >
               ورود/ثبت نام
             </Typography>
           </Box>
@@ -115,13 +136,17 @@ const Header = () => {
                 <ShoppingCart />
               </Badge>
             </IconButton>
-            <Typography variant="body2" sx={{ fontSize: "0.75rem" }}>
+            <Typography
+              variant="body2"
+              sx={{ fontSize: "0.75rem", color: theme.palette.secondary.light }}
+            >
               سبد خرید
             </Typography>
           </Box>
         </Box>
       </Toolbar>
 
+      {/* کشوی سبد خرید */}
       <Drawer
         anchor="right"
         open={cartOpen}
@@ -135,10 +160,10 @@ const Header = () => {
             width: "350px",
             height: "100%",
             padding: "2rem",
-            backgroundColor: "white",
+            backgroundColor: theme.palette.background.default,
           }}
         >
-          <Cart /> {/* کامپوننت سبد خرید */}
+          <Cart />
         </Box>
       </Drawer>
     </AppBar>
