@@ -12,15 +12,15 @@ import {
   Box,
   Drawer,
 } from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
 import { AccountCircle, ShoppingCart } from "@mui/icons-material";
-import Cart from "@/components/Cart"; // ایمپورت کامپوننت سبد خرید
+import Cart from "@/components/Cart";
 
 const Header = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [searchQuery, setSearchQuery] = useState("");
-  const [cartItems, setCartItems] = useState(1); // تعداد آیتم‌های سبد خرید
-  const [cartOpen, setCartOpen] = useState(false); // وضعیت باز بودن سبد خرید
-
+  const [cartItems, setCartItems] = useState(1);
+  const [cartOpen, setCartOpen] = useState(false);
   const handleMenuClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -33,9 +33,8 @@ const Header = () => {
     setSearchQuery(event.target.value);
   };
 
-  // تابع برای تغییر وضعیت باز و بسته شدن سبد خرید
   const toggleCart = () => {
-    setCartOpen(!cartOpen); // تغییر وضعیت
+    setCartOpen(!cartOpen);
   };
 
   return (
@@ -47,17 +46,20 @@ const Header = () => {
           alignItems: "center",
         }}
       >
-        {/* چیدمان سمت چپ: اسم سایت و دسته‌بندی */}
         <Box sx={{ display: "flex", alignItems: "center" }}>
-          {/* اسم سایت */}
           <Typography variant="h4" sx={{ marginRight: "5rem", color: "black" }}>
             گجت لاین
           </Typography>
 
-          {/* دسته‌بندی */}
-          <IconButton color="inherit" onClick={handleMenuClick}>
+          <IconButton
+            sx={{ ":hover": { color: "orange" } }}
+            color="inherit"
+            onClick={handleMenuClick}
+          >
+            <MenuIcon />
             دسته‌بندی
           </IconButton>
+
           <Menu
             anchorEl={anchorEl}
             open={Boolean(anchorEl)}
@@ -68,7 +70,6 @@ const Header = () => {
             <MenuItem onClick={handleMenuClose}>اسپیکر</MenuItem>
           </Menu>
 
-          {/* باکس جستجو */}
           <TextField
             variant="outlined"
             size="small"
@@ -84,9 +85,7 @@ const Header = () => {
           />
         </Box>
 
-        {/* چیدمان سمت راست: آیکن‌ها */}
         <Box sx={{ display: "flex", alignItems: "center" }}>
-          {/* آیکن ثبت نام همراه با متن */}
           <Box
             sx={{
               display: "flex",
@@ -103,7 +102,6 @@ const Header = () => {
             </Typography>
           </Box>
 
-          {/* آیکن سبد خرید همراه با متن */}
           <Box
             sx={{
               display: "flex",
@@ -124,13 +122,12 @@ const Header = () => {
         </Box>
       </Toolbar>
 
-      {/* استفاده از Drawer برای نمایش سبد خرید */}
       <Drawer
         anchor="right"
         open={cartOpen}
         onClose={toggleCart}
         sx={{
-          zIndex: 1300, // اطمینان از اینکه در بالای سایر المان‌ها نمایش داده شود
+          zIndex: 1300,
         }}
       >
         <Box
