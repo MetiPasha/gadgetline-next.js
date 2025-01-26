@@ -6,6 +6,7 @@ import { ThemeProvider as MuiThemProvider } from "@mui/material";
 import createCache from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
 import theme from "./theme";
+import { CssBaseline } from "@mui/material"; // اضافه کردن CssBaseline
 
 const cacheRtl = createCache({
   key: "muirtl",
@@ -15,6 +16,7 @@ const cacheRtl = createCache({
 function ThemeProvider({ children }: PropsWithChildren) {
   return (
     <CacheProvider value={cacheRtl}>
+      <CssBaseline />
       <MuiThemProvider theme={theme}>{children}</MuiThemProvider>
     </CacheProvider>
   );
