@@ -1,5 +1,5 @@
 // app/page.tsx
-import Cart from "@/components/Cart";
+
 import Header from "@/components/home/Header";
 
 const Home = () => {

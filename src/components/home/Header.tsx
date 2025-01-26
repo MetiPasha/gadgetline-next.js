@@ -11,14 +11,16 @@ import {
   Badge,
   Box,
   Drawer,
-  useTheme, // اضافه کردن useTheme
+  useTheme,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { AccountCircle, ShoppingCart } from "@mui/icons-material";
 import Cart from "@/components/Cart";
+import { useRouter } from "next/navigation";
 
 const Header = () => {
-  const theme = useTheme(); // دسترسی به تم
+  const theme = useTheme();
+  const router = useRouter();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [cartItems, setCartItems] = useState(1);
@@ -40,11 +42,15 @@ const Header = () => {
     setCartOpen(!cartOpen);
   };
 
+  const handleLoginClick = () => {
+    router.push("/auth/login");
+  };
+
   return (
     <AppBar
       position="sticky"
       sx={{
-        backgroundColor: theme.palette.primary.main, // رنگ پس‌زمینه آبی پررنگ
+        backgroundColor: theme.palette.primary.main,
       }}
     >
       <Toolbar
@@ -60,7 +66,7 @@ const Header = () => {
             variant="h4"
             sx={{
               marginRight: "5rem",
-              color: theme.palette.secondary.light, // استفاده از رنگ روشن برای متن
+              color: theme.palette.secondary.light,
             }}
           >
             گجت لاین
@@ -68,7 +74,7 @@ const Header = () => {
 
           <IconButton
             sx={{
-              ":hover": { color: theme.palette.secondary.light }, // رنگ شناور
+              ":hover": { color: theme.palette.secondary.light },
             }}
             color="inherit"
             onClick={handleMenuClick}
@@ -94,7 +100,7 @@ const Header = () => {
             onChange={handleSearchChange}
             placeholder="جستجو در گجت لاین..."
             sx={{
-              background: theme.palette.background.default, // رنگ پس‌زمینه از تم
+              background: theme.palette.background.default,
               marginLeft: 2,
               flexGrow: 1,
               maxWidth: "31.25rem",
@@ -112,7 +118,8 @@ const Header = () => {
               marginLeft: 2,
             }}
           >
-            <IconButton color="inherit">
+            <IconButton color="inherit" onClick={handleLoginClick}>
+              {/* اضافه کردن هندلر کلیک */}
               <AccountCircle />
             </IconButton>
             <Typography
