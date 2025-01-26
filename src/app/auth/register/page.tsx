@@ -1,27 +1,24 @@
 "use client";
-import React, { useState, useReducer, useCallback } from "react";
+import React, { useState, useReducer } from "react";
 import {
   Box,
   Button,
   Card,
   CardContent,
-  Checkbox,
   CircularProgress,
   Container,
   FormControl,
-  FormControlLabel,
   FormHelperText,
   IconButton,
   InputAdornment,
   InputLabel,
-  LinearProgress,
-  Link,
   OutlinedInput,
   TextField,
   Typography,
 } from "@mui/material";
 import { styled } from "@mui/system";
 import { Visibility, VisibilityOff, Google } from "@mui/icons-material";
+import { validateFormData } from "@/components/validation/registerValidation";
 
 // Styled components
 const StyledCard = styled(Card)(({ theme }) => ({
@@ -30,7 +27,7 @@ const StyledCard = styled(Card)(({ theme }) => ({
   padding: theme.spacing(2),
   boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1)",
   overflow: "hidden",
-  boxSizing: "border-box", // This ensures that padding is included in the element's total width and height
+  boxSizing: "border-box",
 }));
 
 const SocialButton = styled(Button)(({ theme }) => ({
@@ -38,18 +35,6 @@ const SocialButton = styled(Button)(({ theme }) => ({
   "&.google": { backgroundColor: "#db4437", color: "white" },
   "&:hover": { opacity: 0.9 },
 }));
-
-const PasswordStrength = styled(LinearProgress)<{ value: number }>(
-  ({ value }) => ({
-    marginTop: "6px",
-    height: "4px",
-    borderRadius: "2px",
-    "& .MuiLinearProgress-bar": {
-      backgroundColor:
-        value < 30 ? "#f44336" : value < 60 ? "#ff9800" : "#4caf50",
-    },
-  })
-);
 
 // State and reducer for form data
 interface FormData {
@@ -60,9 +45,9 @@ interface FormData {
 }
 
 interface Action {
-  type: "SET_FIELD"; // The type of the action, which is "SET_FIELD"
-  field: keyof FormData; // The field name must be one of the keys of FormData
-  value: string; // The value should be of type string (the value entered in the form)
+  type: "SET_FIELD";
+  field: keyof FormData;
+  value: string;
 }
 
 interface Errors {
@@ -92,105 +77,37 @@ const RegistrationForm: React.FC = () => {
   const [errors, setErrors] = useState<Errors>({});
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [agreed, setAgreed] = useState(false);
-
-  const validatePassword = useCallback((password: string) => {
-    const strength = {
-      score: 0,
-      hasLength: password.length >= 8,
-      hasUpper: /[A-Z]/.test(password),
-      hasNumber: /\d/.test(password),
-      hasSpecial: /[!@#$%^&*]/.test(password),
-    };
-    strength.score =
-      (Number(strength.hasLength) +
-        Number(strength.hasUpper) +
-        Number(strength.hasNumber) +
-        Number(strength.hasSpecial)) *
-      25;
-    return strength;
-  }, []);
-
-  const validateField = (name: keyof FormData, value: string) => {
-    setErrors((prevErrors) => {
-      const newErrors = { ...prevErrors };
-
-      switch (name) {
-        case "firstName":
-          if (value.length < 2) {
-            newErrors.firstName = "نام باید حداقل 2 کاراکتر باشد";
-          } else {
-            delete newErrors.firstName;
-          }
-          break;
-
-        case "lastName":
-          if (value.length < 2) {
-            newErrors.lastName = "نام خانوادگی باید حداقل 2 کاراکتر باشد";
-          } else {
-            delete newErrors.lastName;
-          }
-          break;
-
-        case "email":
-          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-          if (!emailRegex.test(value)) {
-            newErrors.email = "لطفاً یک آدرس ایمیل معتبر وارد کنید";
-          } else {
-            delete newErrors.email;
-          }
-          break;
-
-        case "password":
-          const strength = validatePassword(value);
-          if (!strength.hasLength) {
-            newErrors.password = "رمز عبور باید حداقل 8 کاراکتر باشد";
-          } else if (!strength.hasUpper) {
-            newErrors.password = "حداقل یک حرف بزرگ وارد کنید";
-          } else if (!strength.hasNumber) {
-            newErrors.password = "حداقل یک عدد وارد کنید";
-          } else if (!strength.hasSpecial) {
-            newErrors.password = "حداقل یک کاراکتر خاص وارد کنید";
-          } else {
-            delete newErrors.password;
-          }
-          break;
-
-        default:
-          break;
-      }
-
-      return newErrors;
-    });
-  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     dispatch({ type: "SET_FIELD", field: name as keyof FormData, value });
-    validateField(name as keyof FormData, value);
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (Object.keys(errors).length === 0 && agreed) {
+
+    // اعتبارسنجی فرم با Zod
+    const validationResult = validateFormData(formData);
+
+    if (validationResult.isValid) {
       setLoading(true);
       try {
-        await new Promise((resolve) => setTimeout(resolve, 2000));
+        await new Promise((resolve) => setTimeout(resolve, 2000)); // شبیه‌سازی درخواست API
         console.log("Form submitted:", formData);
         dispatch({ type: "SET_FIELD", field: "firstName", value: "" });
         dispatch({ type: "SET_FIELD", field: "lastName", value: "" });
         dispatch({ type: "SET_FIELD", field: "email", value: "" });
         dispatch({ type: "SET_FIELD", field: "password", value: "" });
-        setAgreed(false);
       } catch (error) {
         console.error("Submission error:", error);
       } finally {
         setLoading(false);
       }
+    } else {
+      // نمایش ارورها
+      setErrors(validationResult.errors);
     }
   };
-
-  const passwordStrength = validatePassword(formData.password);
 
   return (
     <Container
@@ -205,7 +122,7 @@ const RegistrationForm: React.FC = () => {
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
         backgroundAttachment: "fixed",
-        overflow: "hidden", // اسکرول را مخفی می‌کند
+        overflow: "hidden",
       }}
     >
       <Box
@@ -242,7 +159,7 @@ const RegistrationForm: React.FC = () => {
             display="flex"
             justifyContent="center"
             alignItems="center"
-            sx={{ mb: 2, gap: "8px" }} // فاصله کم و چیدمان در یک خط
+            sx={{ mb: 2, gap: "8px" }}
           >
             <SocialButton
               variant="contained"
@@ -321,19 +238,13 @@ const RegistrationForm: React.FC = () => {
                       onClick={() => setShowPassword(!showPassword)}
                       edge="end"
                     >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                      {showPassword ? <Visibility /> : <VisibilityOff />}
                     </IconButton>
                   </InputAdornment>
                 }
                 label="رمز عبور"
               />
               <FormHelperText>{errors.password}</FormHelperText>
-              {formData.password && (
-                <PasswordStrength
-                  variant="determinate"
-                  value={passwordStrength.score}
-                />
-              )}
             </FormControl>
 
             <Button
@@ -341,15 +252,7 @@ const RegistrationForm: React.FC = () => {
               variant="contained"
               color="primary"
               type="submit"
-              disabled={
-                loading ||
-                !agreed ||
-                Object.keys(errors).length > 0 ||
-                !formData.firstName ||
-                !formData.lastName ||
-                !formData.email ||
-                !formData.password
-              }
+              disabled={loading}
               sx={{ mt: 3 }}
             >
               {loading ? <CircularProgress size={24} /> : "ثبت‌نام"}

@@ -13,6 +13,7 @@ import {
 import { styled } from "@mui/system";
 import EmailIcon from "@mui/icons-material/Email";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import validateLogin from "@/components/validation/loginValidation";
 
 const StyledContainer = styled(Container)(({ theme }) => ({
   display: "flex",
@@ -72,38 +73,34 @@ const StyledRegisterLink = styled(Link)({
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [emailError, setEmailError] = useState("");
-  const [passwordError, setPasswordError] = useState("");
+  const [errors, setErrors] = useState<{ email?: string; password?: string }>(
+    {}
+  );
   const [isLoading, setIsLoading] = useState(false);
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
-    if (!/^\S+@\S+\.\S+$/.test(e.target.value)) {
-      setEmailError("فرمت ایمیل نادرست است");
-    } else {
-      setEmailError("");
-    }
+    setErrors((prev) => ({ ...prev, email: "" }));
   };
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
-    if (e.target.value.length < 6) {
-      setPasswordError("رمز عبور باید حداقل 6 کاراکتر باشد");
-    } else {
-      setPasswordError("");
-    }
+    setErrors((prev) => ({ ...prev, password: "" }));
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!emailError && !passwordError) {
+
+    const validationResult = validateLogin({ email, password });
+
+    if (validationResult.isValid) {
       setIsLoading(true);
-      // Simulating API call
       setTimeout(() => {
         setIsLoading(false);
-        // Handle login logic here
         console.log("ورود با موفقیت انجام شد", { email, password });
       }, 2000);
+    } else {
+      setErrors(validationResult.errors);
     }
   };
 
@@ -161,8 +158,8 @@ const LoginPage = () => {
             autoFocus
             value={email}
             onChange={handleEmailChange}
-            error={!!emailError}
-            helperText={emailError}
+            error={!!errors.email}
+            helperText={errors.email}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -183,8 +180,8 @@ const LoginPage = () => {
             autoComplete="current-password"
             value={password}
             onChange={handlePasswordChange}
-            error={!!passwordError}
-            helperText={passwordError}
+            error={!!errors.password}
+            helperText={errors.password}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
