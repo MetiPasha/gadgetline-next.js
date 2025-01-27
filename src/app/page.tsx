@@ -5,6 +5,7 @@ import Hero from "@/components/Hero";
 import Dashboard from "@/components/home/Dashboard";
 import Product from "@/components/Product";
 import Footer from "@/components/shared/Footer";
+// import ProductDetail from "@/components/ProductDetail";
 
 const Home = () => {
   return (
@@ -14,6 +15,7 @@ const Home = () => {
       <Dashboard />
       <Product />
       <Footer />
+      {/* <ProductDetail /> */}
     </div>
   );
 };
