@@ -6,7 +6,7 @@ import LaptopMacIcon from "@mui/icons-material/LaptopMac"; // Laptop icon
 import HeadphonesIcon from "@mui/icons-material/Headphones"; // Headphones icon
 import SmartphoneIcon from "@mui/icons-material/Smartphone"; // Smartphone icon
 import DevicesIcon from "@mui/icons-material/Devices"; // General devices icon
-
+import DevicesOtherIcon from "@mui/icons-material/DevicesOther";
 const Dashboard: React.FC = () => {
   const theme = useTheme(); // Using theme to access colors
 
@@ -131,7 +131,7 @@ const Dashboard: React.FC = () => {
         </ul>
 
         {/* Devices icon on the right */}
-        <DevicesIcon sx={{ fontSize: 24, color: "aqua" }} />
+        <DevicesOtherIcon sx={{ fontSize: 24, color: "aqua" }} />
       </Container>
     </Box>
   );

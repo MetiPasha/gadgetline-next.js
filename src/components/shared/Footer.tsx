@@ -1,8 +1,13 @@
 "use client";
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Container, IconButton, Typography } from "@mui/material";
 import Link from "next/link";
 import React from "react";
-import Image from "next/image";
+
+import FacebookIcon from "@mui/icons-material/Facebook";
+import XIcon from "@mui/icons-material/X";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import VerticalAlignTopIcon from "@mui/icons-material/VerticalAlignTop";
+import theme from "../Theme/theme";
 
 // Define the Footer component
 const Footer: React.FC = () => {
@@ -34,13 +39,10 @@ const Footer: React.FC = () => {
             justifyContent: "space-between", // Space out items
           }}
         >
-          <Link href="/">
-            <Image
-              src="./assets/shared/desktop/logo.svg" // Path to logo
-              alt="logo"
-              width={150} // Logo width
-              height={30} // Logo height
-            />
+          <Link href="/" passHref>
+            <IconButton sx={{ color: "white" }}>
+              <VerticalAlignTopIcon style={{ width: 150, height: 30 }} />
+            </IconButton>
           </Link>
           <ul
             style={{
@@ -50,17 +52,33 @@ const Footer: React.FC = () => {
             }}
           >
             {/* Navigation Links */}
-            <Link href="/" style={{ marginRight: "2rem", fontWeight: 700 }}>
-              صفحه اصلی
+            <Link
+              href="/"
+              style={{ marginRight: "2rem", fontWeight: 700 }}
+              passHref
+            >
+              <IconButton sx={{ color: "white" }}>پشتیبانی</IconButton>
             </Link>
-            <Link href="/" style={{ marginRight: "2rem", fontWeight: 700 }}>
-              هدفون‌ها
+            <Link
+              href="/"
+              style={{ marginRight: "2rem", fontWeight: 700 }}
+              passHref
+            >
+              <IconButton sx={{ color: "white" }}>درباره ما</IconButton>
             </Link>
-            <Link href="/" style={{ marginRight: "2rem", fontWeight: 700 }}>
-              اسپیکرها
+            <Link
+              href="/"
+              style={{ marginRight: "2rem", fontWeight: 700 }}
+              passHref
+            >
+              <IconButton sx={{ color: "white" }}>محصولات</IconButton>
             </Link>
-            <Link href="/" style={{ fontWeight: 700 }}>
-              ایرفون‌ها
+            <Link
+              href="/"
+              style={{ marginRight: "2rem", fontWeight: 700 }}
+              passHref
+            >
+              <IconButton sx={{ color: "white" }}>صفحه اصلی</IconButton>
             </Link>
           </ul>
         </Box>
@@ -70,48 +88,44 @@ const Footer: React.FC = () => {
           sx={{
             display: "flex",
             justifyContent: "space-between", // Space out the text and social media icons
-            marginTop: "1rem",
+            marginRight: "1.5rem",
             alignItems: "flex-end", // Align the items to the bottom
           }}
         >
+          <Box sx={{ display: "flex" }}>
+            <FacebookIcon
+              width={25} // Icon width
+              height={25} // Icon height
+            />
+            <XIcon
+              width={25} // Icon width
+              height={25} // Icon height
+              style={{ marginLeft: "1rem" }} // Add space between icons
+            />
+            <InstagramIcon
+              width={25} // Icon width
+              height={25} // Icon height
+              style={{ marginLeft: "1rem" }} // Add space between icons
+            />
+          </Box>
           <Typography
             variant="body1"
             sx={{
               color: "#8d8d8d", // Light gray color for text
               fontSize: "1rem", // Font size
               maxWidth: "30rem", // Max width for text
-              textAlign: "right", // Right-align the text
+              marginLeft: "2rem",
+              marginTop: "1rem",
+              textAlign: "left", // Right-align the text
             }}
           >
             Audiophile یک ایستگاه یکپارچه برای رفع نیازهای صوتی شماست. ما یک تیم
             کوچک از علاقه‌مندان به موسیقی و متخصصان صدا هستیم که به شما کمک
             می‌کنیم تا از صدای شخصی خود بیشترین بهره را ببرید. به مرکز نمایشگاهی
-            ما بیایید - ما 7 روز هفته باز هستیم.
+            ما بیایید - ما 7 روز هفته باز هستیم
           </Typography>
 
           {/* Social Media Icons */}
-          <Box sx={{ display: "flex" }}>
-            <Image
-              src="/assets/shared/desktop/icon-facebook.svg"
-              alt="facebook-icon"
-              width={25} // Icon width
-              height={25} // Icon height
-            />
-            <Image
-              src="/assets/shared/desktop/icon-twitter.svg"
-              alt="twitter-icon"
-              width={25} // Icon width
-              height={25} // Icon height
-              style={{ marginLeft: "1rem" }} // Add space between icons
-            />
-            <Image
-              src="/assets/shared/desktop/icon-instagram.svg"
-              alt="instagram-icon"
-              width={25} // Icon width
-              height={25} // Icon height
-              style={{ marginLeft: "1rem" }} // Add space between icons
-            />
-          </Box>
         </Box>
 
         {/* Copyright text */}
@@ -121,11 +135,12 @@ const Footer: React.FC = () => {
             color: "#8d8d8d", // Light gray color for text
             fontSize: "1rem", // Font size
             maxWidth: "30rem", // Max width for text
-            marginTop: "4rem", // Margin top for spacing
+            marginTop: "2rem",
+            marginRight: "1rem", // Margin top for spacing
             textAlign: "right", // Right-align the text
           }}
         >
-          Copyright 2021. تمامی حقوق محفوظ است.
+          Copyright 2024. تمامی حقوق محفوظ است
         </Typography>
       </Container>
     </Box>
