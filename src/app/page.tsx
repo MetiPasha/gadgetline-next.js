@@ -3,6 +3,7 @@
 import Header from "@/components/home/Header";
 import Hero from "@/components/Hero";
 import Dashboard from "@/components/home/Dashboard";
+import Product from "@/components/Product";
 
 const Home = () => {
   return (
@@ -10,6 +11,7 @@ const Home = () => {
       <Header />
       <Hero />
       <Dashboard />
+      <Product />
       <main>
         <h1>به وب سایت من خوش آمدید</h1>
         <p>اینجا محتوای صفحه خانه را میبینِید</p>
