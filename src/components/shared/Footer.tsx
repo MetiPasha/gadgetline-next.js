@@ -7,7 +7,6 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import XIcon from "@mui/icons-material/X";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import VerticalAlignTopIcon from "@mui/icons-material/VerticalAlignTop";
-import theme from "../Theme/theme";
 
 // Define the Footer component
 const Footer: React.FC = () => {
