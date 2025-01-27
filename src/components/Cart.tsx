@@ -55,7 +55,6 @@ const Cart = () => {
         </Box>
       </Box>
 
-      {/* جمع کل */}
       <Box sx={{ display: "flex", justifyContent: "space-between" }}>
         <Typography>جمع کل</Typography>
         <Typography>100$</Typography>
