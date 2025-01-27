@@ -1,4 +1,5 @@
-"use client";
+"use client"; // This indicates the component is a client-side React component.
+
 import React, { useState } from "react";
 import {
   AppBar,
@@ -19,107 +20,129 @@ import Cart from "@/components/Cart";
 import { useRouter } from "next/navigation";
 
 const Header = () => {
-  const theme = useTheme();
-  const router = useRouter();
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [cartItems, setCartItems] = useState(1);
-  const [cartOpen, setCartOpen] = useState(false);
+  const theme = useTheme(); // Get the current theme for styling.
+  const router = useRouter(); // Next.js router for navigation.
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null); // State for handling menu anchor.
+  const [searchQuery, setSearchQuery] = useState(""); // State for the search input value.
+  const [cartItems, setCartItems] = useState(1); // State for the number of items in the cart.
+  const [cartOpen, setCartOpen] = useState(false); // State to control the visibility of the cart drawer.
 
+  // Handles the opening of the menu.
   const handleMenuClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
+  // Handles the closing of the menu.
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
 
+  // Updates the search query state on input change.
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value);
   };
 
+  // Toggles the cart drawer open/close state.
   const toggleCart = () => {
     setCartOpen(!cartOpen);
   };
 
+  // Navigates to the login page.
   const handleLoginClick = () => {
     router.push("/auth/login");
   };
 
   return (
     <AppBar
-      position="sticky"
+      position="sticky" // Keeps the header sticky at the top of the page.
       sx={{
-        backgroundColor: theme.palette.primary.main,
+        backgroundColor: theme.palette.primary.dark, // Background color based on theme.
       }}
     >
       <Toolbar
         sx={{
           display: "flex",
-          justifyContent: "space-between",
+          justifyContent: "space-between", // Space between logo/search and user options.
           alignItems: "center",
         }}
       >
-        {/* بخش لوگو و جستجو */}
+        {/* Left Section: Logo, Menu, and Search */}
         <Box sx={{ display: "flex", alignItems: "center" }}>
+          {/* Logo */}
           <Typography
             variant="h4"
             sx={{
               marginRight: "5rem",
-              color: theme.palette.secondary.light,
+              color: theme.palette.secondary.light, // Styled using theme.
             }}
           >
             گجت لاین
           </Typography>
 
+          {/* Category Menu Button */}
           <IconButton
             sx={{
-              ":hover": { color: theme.palette.secondary.light },
+              ":hover": { color: theme.palette.secondary.light }, // Hover effect.
             }}
             color="inherit"
-            onClick={handleMenuClick}
+            onClick={handleMenuClick} // Opens the category menu.
           >
             <MenuIcon />
             دسته‌بندی
           </IconButton>
 
+          {/* Category Dropdown Menu */}
           <Menu
-            anchorEl={anchorEl}
-            open={Boolean(anchorEl)}
-            onClose={handleMenuClose}
+            anchorEl={anchorEl} // Position of the menu.
+            open={Boolean(anchorEl)} // Menu visibility.
+            onClose={handleMenuClose} // Closes the menu.
           >
             <MenuItem onClick={handleMenuClose}>لپ تاپ</MenuItem>
             <MenuItem onClick={handleMenuClose}>هدفون</MenuItem>
             <MenuItem onClick={handleMenuClose}>اسپیکر</MenuItem>
           </Menu>
 
+          {/* Search Bar */}
           <TextField
             variant="outlined"
             size="small"
-            value={searchQuery}
-            onChange={handleSearchChange}
-            placeholder="جستجو در گجت لاین..."
+            value={searchQuery} // Controlled input value.
+            onChange={handleSearchChange} // Updates the search query.
+            placeholder="جستجو در گجت لاین..." // Placeholder text.
             sx={{
-              background: theme.palette.background.default,
+              background: theme.palette.background.default, // Background styling.
               marginLeft: 2,
-              flexGrow: 1,
-              maxWidth: "31.25rem",
+              flexGrow: 1, // Makes the search bar grow to fill space.
+              maxWidth: "31.25rem", // Limits the width.
             }}
           />
         </Box>
 
-        {/* بخش ورود و سبد خرید */}
+        {/* Brand Slogan */}
+        <Typography
+          variant="h6"
+          sx={{
+            color: theme.palette.secondary.main,
+            marginLeft: 4,
+            fontWeight: "bold",
+            fontSize: "2rem", // Large font for visibility.
+          }}
+        >
+          کیفیت برتر، قیمت بهتر
+        </Typography>
+
+        {/* Right Section: Login and Cart */}
         <Box sx={{ display: "flex", alignItems: "center" }}>
+          {/* Login Button */}
           <Box
             sx={{
               display: "flex",
               flexDirection: "column",
-              alignItems: "center",
+              alignItems: "center", // Centers icon and text vertically.
               marginLeft: 2,
             }}
           >
             <IconButton color="inherit" onClick={handleLoginClick}>
-              {/* اضافه کردن هندلر کلیک */}
               <AccountCircle />
             </IconButton>
             <Typography
@@ -130,6 +153,7 @@ const Header = () => {
             </Typography>
           </Box>
 
+          {/* Cart Button */}
           <Box
             sx={{
               display: "flex",
@@ -153,24 +177,24 @@ const Header = () => {
         </Box>
       </Toolbar>
 
-      {/* کشوی سبد خرید */}
+      {/* Cart Drawer */}
       <Drawer
-        anchor="right"
-        open={cartOpen}
-        onClose={toggleCart}
+        anchor="right" // Opens the drawer from the right side.
+        open={cartOpen} // Controlled visibility.
+        onClose={toggleCart} // Closes the drawer.
         sx={{
-          zIndex: 1300,
+          zIndex: 1300, // Ensures the drawer is above other components.
         }}
       >
         <Box
           sx={{
-            width: "350px",
-            height: "100%",
-            padding: "2rem",
-            backgroundColor: theme.palette.background.default,
+            width: "350px", // Fixed width for the cart drawer.
+            height: "100%", // Full height.
+            padding: "2rem", // Adds padding inside the drawer.
+            backgroundColor: theme.palette.background.default, // Styled using theme.
           }}
         >
-          <Cart />
+          <Cart /> {/* Cart component rendering the cart items. */}
         </Box>
       </Drawer>
     </AppBar>
