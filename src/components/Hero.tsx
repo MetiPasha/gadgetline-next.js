@@ -135,11 +135,11 @@ const Hero: React.FC = () => {
           <Button
             onClick={prevImage} // Call function to go to previous image
             sx={{
-              backgroundColor: theme.palette.primary.dark, // Button background color
+              backgroundColor: theme.palette.secondary.dark, // Button background color
               color: "white", // Text color
               margin: "0 0.5rem", // Horizontal margin for buttons
               "&:hover": {
-                backgroundColor: theme.palette.primary.main, // Hover effect
+                backgroundColor: theme.palette.secondary.main, // Hover effect
               },
             }}
           >
@@ -148,11 +148,11 @@ const Hero: React.FC = () => {
           <Button
             onClick={nextImage} // Call function to go to next image
             sx={{
-              backgroundColor: theme.palette.primary.dark, // Button background color
+              backgroundColor: theme.palette.secondary.dark, // Button background color
               color: "white", // Text color
               margin: "0 0.5rem", // Horizontal margin for buttons
               "&:hover": {
-                backgroundColor: theme.palette.primary.main, // Hover effect
+                backgroundColor: theme.palette.secondary.main, // Hover effect
               },
             }}
           >

@@ -2,12 +2,14 @@
 
 import Header from "@/components/home/Header";
 import Hero from "@/components/Hero";
+import Dashboard from "@/components/home/Dashboard";
 
 const Home = () => {
   return (
     <div>
       <Header />
       <Hero />
+      <Dashboard />
       <main>
         <h1>به وب سایت من خوش آمدید</h1>
         <p>اینجا محتوای صفحه خانه را میبینِید</p>
