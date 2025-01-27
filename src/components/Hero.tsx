@@ -2,27 +2,28 @@
 import { Box, Typography, Button, useTheme } from "@mui/material";
 import React, { useState } from "react";
 
-// تصاویر نمونه
+// Sample images array - replace with actual image paths
 const images: string[] = [
-  "/images/image1.jpg", // مسیر تصویر اول
-  "/images/image2.jpg", // مسیر تصویر دوم
-  "/images/image3.jpg", // مسیر تصویر سوم
-  "/images/image4.jpg", // مسیر تصویر چهارم
-  "/images/image5.jpg", // مسیر تصویر پنجم
+  "/images/image1.jpg", // path to the first image
+  "/images/image2.jpg", // path to the second image
+  "/images/image3.jpg", // path to the third image
+  "/images/image4.jpg", // path to the fourth image
+  "/images/image5.jpg", // path to the fifth image
 ];
 
 const Hero: React.FC = () => {
+  // Accessing the theme for styling
   const theme = useTheme();
 
-  // وضعیت برای تصویر فعال
+  // State to track the current active image index
   const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
 
-  // تغییر تصویر به تصویر بعدی
+  // Function to change to the next image
   const nextImage = () => {
     setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
   };
 
-  // تغییر تصویر به تصویر قبلی
+  // Function to change to the previous image
   const prevImage = () => {
     setCurrentImageIndex(
       (prevIndex) => (prevIndex - 1 + images.length) % images.length
@@ -32,66 +33,69 @@ const Hero: React.FC = () => {
   return (
     <Box
       sx={{
-        display: "flex",
-        flexDirection: "row", // به صورت راست به چپ چیده شده
-        height: "70vh",
-        width: "100%",
-        justifyContent: "center",
-        alignItems: "center",
+        display: "flex", // Use flexbox for layout
+        flexDirection: "row", // Display images and text side by side
+        height: "70vh", // Set the height of the container
+        width: "100%", // Full width of the container
+        justifyContent: "center", // Center the content horizontally
+        alignItems: "center", // Center the content vertically
       }}
     >
-      {/* گالری تصاویر سمت چپ */}
-
-      {/* متن و دکمه سمت راست */}
+      {/* Text and button section on the right */}
       <Box
         sx={{
           display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "flex-start", // چیدمان به سمت چپ
-          width: "30vw", // کاهش عرض قسمت متن
-          marginLeft: "2rem", // فاصله از سمت چپ
+          flexDirection: "column", // Align items vertically
+          justifyContent: "center", // Center items vertically
+          alignItems: "flex-start", // Align items to the left
+          width: "30vw", // Set width to 30% of the viewport
+          marginLeft: "2rem", // Margin to the left side
         }}
       >
+        {/* Main title */}
         <Typography
           sx={{
-            fontWeight: "700",
-            margin: "1rem",
-            marginBottom: "1rem",
-            fontSize: "3.5rem",
-            textAlign: "left", // متن به سمت چپ
+            fontWeight: "700", // Bold font weight
+            margin: "1rem", // Margin around the title
+            marginBottom: "1rem", // Bottom margin
+            fontSize: "3.5rem", // Set font size for title
+            textAlign: "left", // Align text to the left
           }}
           variant="h1"
         >
           دنیای گجت ها
         </Typography>
+
+        {/* Description text */}
         <Typography
           sx={{
-            fontSize: "1.5rem",
-            marginBottom: "1.5rem",
-            textAlign: "left", // متن به سمت چپ
-            marginLeft: "1rem", // فاصله از سمت چپ
+            fontSize: "1.5rem", // Font size for the description
+            marginBottom: "1.5rem", // Margin below the description
+            textAlign: "left", // Align text to the left
+            marginLeft: "1rem", // Left margin for the description
           }}
           variant="body1"
         >
           شما میتوانید با دیدن از محصولات ما بهترین انتخاب را داشته باشین
         </Typography>
+
+        {/* Button for navigation */}
         <Box
           sx={{
             display: "flex",
-            justifyContent: "flex-start", // چیدمان دکمه به سمت چپ
-            width: "100%",
+            justifyContent: "flex-start", // Align button to the left
+            width: "100%", // Full width of the container
           }}
         >
           <Button
             variant="contained"
             sx={{
-              padding: "0.5rem 2rem",
-              marginLeft: "1rem",
-              backgroundColor: theme.palette.primary.main,
-              color: theme.palette.getContrastText(theme.palette.primary.main),
+              padding: "0.5rem 2rem", // Padding inside the button
+              marginLeft: "1rem", // Left margin for the button
+              backgroundColor: theme.palette.primary.main, // Button background color
+              color: theme.palette.getContrastText(theme.palette.primary.main), // Text color for contrast
               "&:hover": {
-                backgroundColor: theme.palette.primary.dark,
+                backgroundColor: theme.palette.primary.dark, // Hover effect
               },
             }}
           >
@@ -99,52 +103,56 @@ const Hero: React.FC = () => {
           </Button>
         </Box>
       </Box>
+
+      {/* Image gallery section on the left */}
       <Box
         sx={{
-          width: "60vw", // افزایش عرض گالری برای ایجاد فضای بیشتر
-          height: "100%",
-          marginRight: "2rem", // فاصله از سمت راست
+          width: "60vw", // Increase width of the image gallery
+          height: "100%", // Full height of the container
+          marginRight: "2rem", // Right margin to create space between sections
           display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
+          flexDirection: "column", // Align items vertically
+          alignItems: "center", // Center the items horizontally
+          justifyContent: "center", // Center the content vertically
         }}
       >
-        {/* تصویر فعلی */}
+        {/* Display current image */}
         <Box
           sx={{
-            width: "100%",
-            height: "80%", // تنظیم ارتفاع تصویر
-            borderRadius: "8px",
-            backgroundImage: `url(${images[currentImageIndex]})`, // بارگذاری تصویر از آرایه
-            backgroundSize: "cover",
-            backgroundPosition: "center",
+            width: "100%", // Full width of the box
+            height: "80%", // Set image height to 80% of the container
+            borderRadius: "8px", // Rounded corners for the image
+            backgroundImage: `url(${images[currentImageIndex]})`, // Set background image based on current index
+            backgroundSize: "cover", // Ensure image covers the entire box
+            backgroundPosition: "center", // Center the image
           }}
         />
+
+        {/* Buttons to navigate through images */}
         <Box
           sx={{ display: "flex", justifyContent: "center", marginTop: "1rem" }}
         >
           <Button
-            onClick={prevImage}
+            onClick={prevImage} // Call function to go to previous image
             sx={{
-              backgroundColor: theme.palette.primary.dark,
-              color: "white",
-              margin: "0 0.5rem",
+              backgroundColor: theme.palette.primary.dark, // Button background color
+              color: "white", // Text color
+              margin: "0 0.5rem", // Horizontal margin for buttons
               "&:hover": {
-                backgroundColor: theme.palette.primary.main,
+                backgroundColor: theme.palette.primary.main, // Hover effect
               },
             }}
           >
             قبلی
           </Button>
           <Button
-            onClick={nextImage}
+            onClick={nextImage} // Call function to go to next image
             sx={{
-              backgroundColor: theme.palette.primary.dark,
-              color: "white",
-              margin: "0 0.5rem",
+              backgroundColor: theme.palette.primary.dark, // Button background color
+              color: "white", // Text color
+              margin: "0 0.5rem", // Horizontal margin for buttons
               "&:hover": {
-                backgroundColor: theme.palette.primary.main,
+                backgroundColor: theme.palette.primary.main, // Hover effect
               },
             }}
           >
