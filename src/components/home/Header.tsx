@@ -99,7 +99,7 @@ const Header = () => {
           >
             <MenuItem onClick={handleMenuClose}>لپ تاپ</MenuItem>
             <MenuItem onClick={handleMenuClose}>هدفون</MenuItem>
-            <MenuItem onClick={handleMenuClose}>اسپیکر</MenuItem>
+            <MenuItem onClick={handleMenuClose}>موبایل</MenuItem>
           </Menu>
 
           {/* Search Bar */}
