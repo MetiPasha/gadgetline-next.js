@@ -1,10 +1,10 @@
 import ProductDetail from "@/components/ProductDetail";
+import { Box } from "@mui/material";
 
 export default function ProductDetailPage() {
   return (
-    <div>
-      <h1>صفحه جزئیات محصول</h1>
+    <Box>
       <ProductDetail />
-    </div>
+    </Box>
   );
 }
