@@ -1,12 +1,11 @@
 "use client";
-import { Box, Container, Link, Typography, useTheme } from "@mui/material";
+import { Box, Container, Typography, useTheme } from "@mui/material";
 import Image from "next/image";
 import Button from "./Button";
+import Link from "next/link"; // Import Link for navigation
 
-// Define the Product component
 const Product: React.FC = () => {
-  // Get access to the theme for styling
-  const theme = useTheme(); // Accessing theme to use primary and secondary colors
+  const theme = useTheme();
 
   return (
     <Container
@@ -77,19 +76,25 @@ const Product: React.FC = () => {
         </Typography>
 
         {/* Button to view the product */}
-        <Box sx={{ display: "flex", alignItems: "center" }}>
-          <Button
-            variant="contained" // Button variant for filled button
-            sx={{
-              backgroundColor: theme.palette.primary.main, // Set button background color from the theme
-              color: theme.palette.common.white, // Set the text color to white
-              "&:hover": {
-                backgroundColor: theme.palette.primary.dark, // Change background color on hover
-              },
-            }}
-          >
-            دیدن محصول
-          </Button>
+        <Box
+          sx={{ display: "flex", alignItems: "center", marginRight: "2rem" }}
+        >
+          <Link href="/product" passHref legacyBehavior>
+            <a>
+              <Button
+                variant="contained" // Button variant for filled button
+                sx={{
+                  backgroundColor: theme.palette.primary.main, // Set button background color from the theme
+                  color: theme.palette.common.white, // Set the text color to white
+                  "&:hover": {
+                    backgroundColor: theme.palette.primary.dark, // Change background color on hover
+                  },
+                }}
+              >
+                دیدن محصول
+              </Button>
+            </a>
+          </Link>
         </Box>
       </Box>
     </Container>
