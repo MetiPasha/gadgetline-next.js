@@ -72,7 +72,7 @@ const Product: React.FC = () => {
           }}
           variant="body1" // Set the typography variant for body text
         >
-          یکی از جدید ترین و پر قدرت های این روز ها هدفون مکس با کیفیت و قیمتی
+          یکی از جدید ترین و پر قدرت های این روز ها هدفون مارک با کیفیت و قیمتی
           باورنکردنی همین حالا خریداری کنید
         </Typography>
 
