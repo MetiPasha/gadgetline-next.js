@@ -13,7 +13,9 @@ import {
 import { styled } from "@mui/system";
 import EmailIcon from "@mui/icons-material/Email";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import validateLogin from "@/components/validation/loginValidation";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import { validateLoginData } from "@/lib/loginValidation"; // ایمپورت تابع validateLoginData
 
 const StyledContainer = styled(Container)(({ theme }) => ({
   display: "flex",
@@ -77,6 +79,7 @@ const LoginPage = () => {
     {}
   );
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false); // اضافه کردن وضعیت برای نمایش/مخفی کردن پسورد
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -88,10 +91,15 @@ const LoginPage = () => {
     setErrors((prev) => ({ ...prev, password: "" }));
   };
 
+  const handleClickShowPassword = () => {
+    setShowPassword((prev) => !prev); // تغییر وضعیت نمایش/مخفی بودن پسورد
+  };
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const validationResult = validateLogin({ email, password });
+    // اعتبارسنجی داده‌ها با استفاده از تابع validateLoginData
+    const validationResult = validateLoginData({ email, password });
 
     if (validationResult.isValid) {
       setIsLoading(true);
@@ -120,18 +128,6 @@ const LoginPage = () => {
         overflow: "hidden",
       }}
     >
-      <Box
-        sx={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-        }}
-      />
       <StyledContainer component="main" maxWidth="xs">
         <StyledForm onSubmit={handleSubmit} noValidate>
           <Typography
@@ -175,7 +171,7 @@ const LoginPage = () => {
             fullWidth
             name="password"
             label="رمز عبور"
-            type="password"
+            type={showPassword ? "text" : "password"} // اگر showPassword true باشد، پسورد نمایش داده می‌شود
             id="password"
             autoComplete="current-password"
             value={password}
@@ -186,6 +182,17 @@ const LoginPage = () => {
               startAdornment: (
                 <InputAdornment position="start">
                   <LockOutlinedIcon color="action" />
+                </InputAdornment>
+              ),
+              endAdornment: (
+                <InputAdornment position="end">
+                  <Button
+                    onClick={handleClickShowPassword} // با کلیک بر روی آیکون چشم وضعیت نمایش/مخفی شدن پسورد تغییر می‌کند
+                    edge="end"
+                    sx={{ color: "gray" }}
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </Button>
                 </InputAdornment>
               ),
             }}

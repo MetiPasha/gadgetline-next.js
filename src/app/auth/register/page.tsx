@@ -18,7 +18,7 @@ import {
 } from "@mui/material";
 import { styled } from "@mui/system";
 import { Visibility, VisibilityOff, Google } from "@mui/icons-material";
-import { validateFormData } from "@/components/validation/registerValidation";
+import { validateFormData } from "@/lib/registerValidation"; // از اینجا وارد می‌کنیم
 
 // Styled components
 const StyledCard = styled(Card)(({ theme }) => ({
@@ -86,7 +86,7 @@ const RegistrationForm: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // اعتبارسنجی فرم با Zod
+    // اعتبارسنجی فرم با استفاده از validateFormData که در registerValidation.ts است
     const validationResult = validateFormData(formData);
 
     if (validationResult.isValid) {
@@ -94,6 +94,7 @@ const RegistrationForm: React.FC = () => {
       try {
         await new Promise((resolve) => setTimeout(resolve, 2000)); // شبیه‌سازی درخواست API
         console.log("Form submitted:", formData);
+        // پاک کردن فیلدها بعد از ارسال
         dispatch({ type: "SET_FIELD", field: "firstName", value: "" });
         dispatch({ type: "SET_FIELD", field: "lastName", value: "" });
         dispatch({ type: "SET_FIELD", field: "email", value: "" });
