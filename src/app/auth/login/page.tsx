@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useActionState, useState } from "react";
 import {
   Box,
   Button,
@@ -16,6 +16,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { validateLoginData } from "@/lib/loginValidation"; // ایمپورت تابع validateLoginData
+import { login } from "@/actions/login";
 
 const StyledContainer = styled(Container)(({ theme }) => ({
   display: "flex",
@@ -94,23 +95,26 @@ const LoginPage = () => {
   const handleClickShowPassword = () => {
     setShowPassword((prev) => !prev); // تغییر وضعیت نمایش/مخفی بودن پسورد
   };
+  const [state, action, pending] = useActionState(login, {
+    message: "",
+    errors: {},
+  });
+  // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  //   // اعتبارسنجی داده‌ها با استفاده از تابع validateLoginData
+  //   const validationResult = validateLoginData({ email, password });
 
-    // اعتبارسنجی داده‌ها با استفاده از تابع validateLoginData
-    const validationResult = validateLoginData({ email, password });
-
-    if (validationResult.isValid) {
-      setIsLoading(true);
-      setTimeout(() => {
-        setIsLoading(false);
-        console.log("ورود با موفقیت انجام شد", { email, password });
-      }, 2000);
-    } else {
-      setErrors(validationResult.errors);
-    }
-  };
+  //   if (validationResult.isValid) {
+  //     setIsLoading(true);
+  //     setTimeout(() => {
+  //       setIsLoading(false);
+  //       console.log("ورود با موفقیت انجام شد", { email, password });
+  //     }, 2000);
+  //   } else {
+  //     setErrors(validationResult.errors);
+  //   }
+  // };
 
   return (
     <Box
@@ -129,7 +133,7 @@ const LoginPage = () => {
       }}
     >
       <StyledContainer component="main" maxWidth="xs">
-        <StyledForm onSubmit={handleSubmit} noValidate>
+        <StyledForm action={action} noValidate>
           <Typography
             component="h1"
             variant="h4"

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useReducer } from "react";
+import React, { useState, useReducer, useActionState } from "react";
 import {
   Box,
   Button,
@@ -19,6 +19,7 @@ import {
 import { styled } from "@mui/system";
 import { Visibility, VisibilityOff, Google } from "@mui/icons-material";
 import { validateFormData } from "@/lib/registerValidation"; // از اینجا وارد می‌کنیم
+import { register } from "@/actions/register";
 
 // Styled components
 const StyledCard = styled(Card)(({ theme }) => ({
@@ -82,33 +83,36 @@ const RegistrationForm: React.FC = () => {
     const { name, value } = e.target;
     dispatch({ type: "SET_FIELD", field: name as keyof FormData, value });
   };
+  const [state, action, pending] = useActionState(register, {
+    message: "",
+  });
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  // const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
 
-    // اعتبارسنجی فرم با استفاده از validateFormData که در registerValidation.ts است
-    const validationResult = validateFormData(formData);
+  //   // اعتبارسنجی فرم با استفاده از validateFormData که در registerValidation.ts است
+  //   const validationResult = validateFormData(formData);
 
-    if (validationResult.isValid) {
-      setLoading(true);
-      try {
-        await new Promise((resolve) => setTimeout(resolve, 2000)); // شبیه‌سازی درخواست API
-        console.log("Form submitted:", formData);
-        // پاک کردن فیلدها بعد از ارسال
-        dispatch({ type: "SET_FIELD", field: "firstName", value: "" });
-        dispatch({ type: "SET_FIELD", field: "lastName", value: "" });
-        dispatch({ type: "SET_FIELD", field: "email", value: "" });
-        dispatch({ type: "SET_FIELD", field: "password", value: "" });
-      } catch (error) {
-        console.error("Submission error:", error);
-      } finally {
-        setLoading(false);
-      }
-    } else {
-      // نمایش ارورها
-      setErrors(validationResult.errors);
-    }
-  };
+  //   if (validationResult.isValid) {
+  //     setLoading(true);
+  //     try {
+  //       await new Promise((resolve) => setTimeout(resolve, 2000)); // شبیه‌سازی درخواست API
+  //       console.log("Form submitted:", formData);
+  //       // پاک کردن فیلدها بعد از ارسال
+  //       dispatch({ type: "SET_FIELD", field: "firstName", value: "" });
+  //       dispatch({ type: "SET_FIELD", field: "lastName", value: "" });
+  //       dispatch({ type: "SET_FIELD", field: "email", value: "" });
+  //       dispatch({ type: "SET_FIELD", field: "password", value: "" });
+  //     } catch (error) {
+  //       console.error("Submission error:", error);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   } else {
+  //     // نمایش ارورها
+  //     setErrors(validationResult.errors);
+  //   }
+  // };
 
   return (
     <Container
@@ -179,7 +183,7 @@ const RegistrationForm: React.FC = () => {
             </Typography>
           </Box>
 
-          <form onSubmit={handleSubmit}>
+          <form action={action}>
             <TextField
               fullWidth
               label="نام"
