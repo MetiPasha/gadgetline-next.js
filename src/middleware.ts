@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
-import { refreshTokenAction } from "@/actions/refresh-token";
+import { refreshTokenAction } from "@/actions/auth/refresh-token";
 
 // 1. Specify protected and public routes
 const protectedRoutes = "/dashboard";
