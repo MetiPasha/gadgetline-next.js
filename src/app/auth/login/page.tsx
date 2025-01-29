@@ -15,8 +15,8 @@ import EmailIcon from "@mui/icons-material/Email";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { validateLoginData } from "@/lib/loginValidation"; // ایمپورت تابع validateLoginData
-import { login } from "@/actions/login";
+// import { validateLoginData } from "@/lib/loginValidation"; // ایمپورت تابع validateLoginData
+import { login } from "@/actions/auth/login";
 
 const StyledContainer = styled(Container)(({ theme }) => ({
   display: "flex",

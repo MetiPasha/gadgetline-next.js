@@ -18,8 +18,8 @@ import {
 } from "@mui/material";
 import { styled } from "@mui/system";
 import { Visibility, VisibilityOff, Google } from "@mui/icons-material";
-import { validateFormData } from "@/lib/registerValidation"; // از اینجا وارد می‌کنیم
-import { register } from "@/actions/register";
+// import { validateFormData } from "@/lib/registerValidation"; // از اینجا وارد می‌کنیم
+import { register } from "@/actions/auth/register";
 
 // Styled components
 const StyledCard = styled(Card)(({ theme }) => ({
