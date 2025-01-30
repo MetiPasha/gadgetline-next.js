@@ -8,7 +8,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import DrawerHeader from "./components/drawerHeader";
+import DrawerHeader from "./components/DrawerHeader";
 import Drawer from "./components/Drawer";
 import { DrawerContext } from "./DrawerProvider";
 import { SIDEBAR_ITEMS } from "./constants";
