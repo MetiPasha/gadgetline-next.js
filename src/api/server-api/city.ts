@@ -2,62 +2,58 @@
 import "server-only";
 
 import { BASE_URL } from "@/config.server";
-import { ICategory, PaginatedResultApi } from "./types";
+import { ICity, PaginatedResultApi } from "./types";
 import { revalidateTag } from "next/cache";
 import { apiFetch } from "./base";
-import { CategoryType } from "@/lib/validations";
+import { CityType } from "@/lib/validations";
 
-// Create a new category
-export const createCategory = async (
-  body: Partial<CategoryType>
-): Promise<ICategory> => {
-  return apiFetch<ICategory>(`${BASE_URL}/categories`, {
+// Create a new city
+export const createCity = async (body: Partial<CityType>): Promise<ICity> => {
+  return apiFetch<ICity>(`${BASE_URL}/cities`, {
     method: "POST",
     body: JSON.stringify(body),
   });
 };
 
-// Update an existing category
-export const updateCategory = async (
+// Update an existing city
+export const updateCity = async (
   id: string,
-  body: Partial<CategoryType>
-): Promise<ICategory> => {
-  const data = await apiFetch<ICategory>(`${BASE_URL}/categories/${id}`, {
+  body: Partial<CityType>
+): Promise<ICity> => {
+  const data = await apiFetch<ICity>(`${BASE_URL}/cities/${id}`, {
     method: "PUT",
     body: JSON.stringify(body),
   });
-  revalidateTag(`categories-${id}`);
+  revalidateTag(`cities-${id}`);
   return data;
 };
 
-// Get a paginated list of categories
-export const getCategories = async (
+// Get a paginated list of cities
+export const getCities = async (
   params?: any
-): Promise<PaginatedResultApi<ICategory>> => {
+): Promise<PaginatedResultApi<ICity>> => {
   const search = new URLSearchParams(params as Record<string, string>);
-  return apiFetch<PaginatedResultApi<ICategory>>(
-    `${BASE_URL}/categories?${search.toString()}`,
+  return apiFetch<PaginatedResultApi<ICity>>(
+    `${BASE_URL}/cities?${search.toString()}`,
     {
       cache: "no-store",
     }
   );
 };
 
-// Delete a category
-export const deleteCategory = async (
-  id: string
-): Promise<{ message: string }> => {
-  return apiFetch<{ message: string }>(`${BASE_URL}/categories/${id}`, {
+// Delete a city
+export const deleteCity = async (id: string): Promise<{ message: string }> => {
+  return apiFetch<{ message: string }>(`${BASE_URL}/cities/${id}`, {
     method: "DELETE",
   });
 };
 
-// Get a category by its ID
-export const getCategoryById = async (id: string): Promise<ICategory> => {
-  return apiFetch<ICategory>(`${BASE_URL}/categories/${id}`, {
+// Get a city by its ID
+export const getCityById = async (id: string): Promise<ICity> => {
+  return apiFetch<ICity>(`${BASE_URL}/cities/${id}`, {
     cache: "force-cache",
     next: {
-      tags: ["allSingleCategory", `categories-${id}`],
+      tags: ["allSingleCity", `cities-${id}`],
     },
   });
 };
