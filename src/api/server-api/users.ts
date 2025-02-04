@@ -23,7 +23,7 @@ export const getUsersById = async (id: string): Promise<IUser> => {
   return apiFetch<IUser>(`${BASE_URL}/auth/users/${id}`, {
     cache: "force-cache",
     next: {
-      tags: ["allSingleusers", `users-${id}`],
+      tags: ["allSingleUsers", `users-${id}`],
     },
   });
 };

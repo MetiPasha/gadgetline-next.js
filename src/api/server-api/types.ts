@@ -38,7 +38,7 @@ export type ServerPageProps = {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
-export interface Column<T extends { id: string }> {
+export interface Column<T extends { id?: string; _id?: string }> {
   title: string;
   render: (row: T) => ReactNode;
 }
@@ -95,7 +95,6 @@ export interface IProduct extends Timestamp {
   expert_reviews: string;
   id: string;
 }
-
 export interface IUser {
   firstName: string;
   lastName: string;
@@ -104,7 +103,6 @@ export interface IUser {
   isActive: boolean;
   id: string;
 }
-
 export interface ISeller extends Timestamp {
   user: IUser;
   name: string;
@@ -119,7 +117,6 @@ export enum OrderStatus {
   Delivered = "delivered",
   Cancelled = "cancelled",
 }
-
 export interface IOrder {
   shippingAddress: {
     street: string;
@@ -135,7 +132,6 @@ export interface IOrder {
   updatedAt: string;
   id: string;
 }
-
 export interface IOrderItem {
   id: string;
   productSeller: {
