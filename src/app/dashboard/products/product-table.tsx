@@ -52,11 +52,11 @@ export function ProductTable({
         },
         {
           title: "دسته بندی",
-          render: (row) => row.category.titleFa,
+          render: (row) => row.category?.titleFa || "نامشخص",
         },
         {
           title: "برند",
-          render: (row) => row.brand.titleFa,
+          render: (row) => row.brand?.titleFa || "نامشخص",
         },
         {
           title: "بروزرسانی",
