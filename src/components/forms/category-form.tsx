@@ -13,6 +13,8 @@ type CategoryFormProps = {
 };
 
 export default function CategoryForm({ defaultValue }: CategoryFormProps) {
+  console.log("defaultValue:", defaultValue);
+  console.log("Parent value before submitting:", defaultValue?.parent);
   const [state, action] = useActionState(createOrUpdateCategoryAction, {
     message: "",
     success: false,
@@ -23,6 +25,7 @@ export default function CategoryForm({ defaultValue }: CategoryFormProps) {
         {defaultValue?.id && (
           <input hidden name="id" defaultValue={defaultValue.id} />
         )}
+
         <CategoryField name="parent" defaultValue={defaultValue?.parent} />
         <PropertiesField
           name="properties"

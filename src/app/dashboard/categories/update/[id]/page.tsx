@@ -6,11 +6,13 @@ import { Box, Card, CardContent, Typography } from "@mui/material";
 export default async function UpdateCategory({ params }: ServerPageProps) {
   const { id } = await params;
   const category = await getCategoryById(id);
+  console.log("CategoryForm defaultValue:", category);
   return (
     <Box maxWidth={500}>
       <Card>
         <CardContent>
           <Typography variant="h5">ویرایش دسته بندی</Typography>
+
           <CategoryForm defaultValue={category} />
         </CardContent>
       </Card>

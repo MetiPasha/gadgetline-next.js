@@ -17,7 +17,7 @@ export async function createOrUpdateProductAction(
 ) {
   /// validate input
   await ensureAuthenticated();
-  const code = formData.get("code");
+  const id = formData.get("id");
   const validatedFields = ProductSchemaZod.safeParse(
     formDataToObject(formData)
   );
@@ -28,8 +28,8 @@ export async function createOrUpdateProductAction(
     };
   }
   try {
-    if (code) {
-      await updateProduct(code.toString(), validatedFields.data);
+    if (id) {
+      await updateProduct(id.toString(), validatedFields.data);
     } else {
       await createProduct(validatedFields.data);
     }
@@ -38,7 +38,7 @@ export async function createOrUpdateProductAction(
     if (e instanceof ApiError) {
       return {
         message: e.message,
-        errors: e.body?.errors,
+        errors: e.body?.errors as ProductFormState["errors"],
       };
     } else {
       return {
@@ -53,7 +53,7 @@ export async function createOrUpdateProductAction(
 export async function deleteProductAction(id: string) {
   await ensureAuthenticated();
   try {
-    const res = await deleteProduct(id);
+    await deleteProduct(id);
   } catch (e) {
     if (e instanceof ApiError) {
       return {

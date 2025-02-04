@@ -1,56 +1,56 @@
 "use server";
-import { createCity, deleteCity, updateCity } from "@/api/server-api/city";
+import {
+  createSeller,
+  deleteSeller,
+  updateSeller,
+} from "@/api/server-api/sellers";
 import { ApiError } from "@/api/server-api/base";
 import { ensureAuthenticated } from "@/lib/session";
-import { CityFormState, CitySchemaZod } from "@/lib/validations";
+import { SellerFormState, SellerSchemaZod } from "@/lib/validations";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { formDataToObject } from "@/lib/utils";
 
-export async function createOrUpdateCityAction(
-  _: CityFormState,
+export async function createOrUpdateSellerAction(
+  state: SellerFormState,
   formData: FormData
 ) {
   /// validate input
   await ensureAuthenticated();
   const id = formData.get("id");
-  const validatedFields = CitySchemaZod.safeParse(formDataToObject(formData));
+  const validatedFields = SellerSchemaZod.safeParse(formDataToObject(formData));
   if (!validatedFields.success) {
     return {
-      success: false,
-      message: "Invalid data",
       errors: validatedFields.error.flatten().fieldErrors,
     };
   }
   try {
     if (id) {
-      await updateCity(id.toString(), validatedFields.data);
+      await updateSeller(id.toString(), validatedFields.data);
     } else {
-      await createCity(validatedFields.data);
+      await createSeller(validatedFields.data);
     }
   } catch (e) {
     console.log(e);
     if (e instanceof ApiError) {
       return {
         message: e.message,
-        errors: e.body?.errors as CityFormState["errors"],
-        success: false,
+        errors: e.body?.errors as SellerFormState["errors"],
       };
     } else {
       return {
-        errors: {},
         message: "failed with call api",
         success: false,
       };
     }
   }
-  redirect("/dashboard/cities");
+  redirect("/dashboard/sellers");
 }
 
-export async function deleteCityAction(id: string) {
+export async function deleteSellerAction(id: string) {
   await ensureAuthenticated();
   try {
-    await deleteCity(id);
+    await deleteSeller(id);
   } catch (e) {
     if (e instanceof ApiError) {
       return {
@@ -59,5 +59,5 @@ export async function deleteCityAction(id: string) {
       };
     }
   }
-  revalidatePath("/dashboard/cities");
+  revalidatePath("/dashboard/sellers");
 }

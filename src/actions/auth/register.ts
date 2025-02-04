@@ -1,9 +1,7 @@
 "use server";
 import "server-only";
-import {
-  RegisterFormState,
-  RegisterFormSchema,
-} from "@/lib/registerValidation";
+
+import { RegisterFormState, RegisterFormSchema } from "@/lib/validations";
 import { createSession } from "@/lib/session";
 import { redirect } from "next/navigation";
 import { AUTH_BASE_URL } from "@/config.server";
@@ -41,6 +39,7 @@ export async function register(state: RegisterFormState, formData: FormData) {
       redirect("/dashboard");
     }
   } catch (err) {
+    console.log(err);
     return {
       message: "register failed",
     };
