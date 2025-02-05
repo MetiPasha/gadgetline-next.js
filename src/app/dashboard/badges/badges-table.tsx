@@ -4,7 +4,13 @@ import { IBadge, PaginatedResultApi } from "@/api/server-api/types";
 import AlertDialog from "@/components/DeleteAlertDialog";
 import AITable from "@/components/tables/AITable";
 import { Edit, Delete } from "@mui/icons-material";
-import { Stack, Tooltip, IconButton } from "@mui/material";
+import {
+  Stack,
+  Tooltip,
+  IconButton,
+  Link as MuiLink,
+  Box,
+} from "@mui/material";
 import Link from "next/link";
 import { use } from "react";
 
@@ -18,7 +24,7 @@ export function BadgesTable({
     <>
       <AITable
         actions={(p) => (
-          <Stack direction={"row"}>
+          <Stack direction="row">
             <Tooltip title="ویرایش">
               <IconButton
                 color="secondary"
@@ -49,7 +55,26 @@ export function BadgesTable({
           },
           {
             title: "icon",
-            render: (row) => row.icon,
+            render: (row) => (
+              <MuiLink
+                href={row.icon}
+                target="_blank"
+                rel="noopener noreferrer"
+                underline="none"
+              >
+                <Box
+                  component="img"
+                  src={row.icon}
+                  alt="Badge Icon"
+                  sx={{
+                    width: 50,
+                    height: 50,
+                    objectFit: "cover",
+                    borderRadius: 1,
+                  }}
+                />
+              </MuiLink>
+            ),
           },
           {
             title: "بروزرسانی",
