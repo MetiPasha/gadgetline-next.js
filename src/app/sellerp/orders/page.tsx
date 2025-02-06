@@ -7,7 +7,7 @@ export default async function UsersPage({ searchParams }: ServerPageProps) {
   const params = await searchParams;
   const orders = getOrders(params);
   return (
-    <TableContainer title="سفارش ها" createLink="/dashboard/orders/create">
+    <TableContainer title="سفارش ها" createLink="/sellerp/orders/create">
       <OrdersTable orders={orders} />
     </TableContainer>
   );

@@ -3,7 +3,7 @@ import { ServerPageProps } from "@/api/server-api/types";
 import ProductForm from "@/components/forms/product-form";
 import { Box, Card, CardContent, Typography } from "@mui/material";
 
-export default async function UpdateCity({ params }: ServerPageProps) {
+export default async function UpdateProduct({ params }: ServerPageProps) {
   const { id } = await params;
   const product = await getProductById(id);
   return (

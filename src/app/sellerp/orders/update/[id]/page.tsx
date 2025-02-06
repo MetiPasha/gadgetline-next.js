@@ -4,7 +4,7 @@ import { CreateBadgeForm } from "@/components/forms/create-badge";
 import { Box, Card, CardContent, Typography } from "@mui/material";
 import React from "react";
 
-export default async function UpdateBadgePage({ params }: ServerPageProps) {
+export default async function UpdateOrders({ params }: ServerPageProps) {
   const { badgeID } = await params;
   const badge = await getBadgeById(badgeID);
   return (

@@ -7,7 +7,7 @@ export default async function CategoryPage({ searchParams }: ServerPageProps) {
   const params = await searchParams;
   const categories = await getCategories(params);
   return (
-    <TableContainer title="دسته بندی" createLink="/dashboard/categories/create">
+    <TableContainer title="دسته بندی" createLink="/sellerp/categories/create">
       <CategoriesTable categories={categories} />
     </TableContainer>
   );

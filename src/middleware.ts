@@ -4,32 +4,43 @@ import { refreshTokenAction } from "./actions/auth/refresh-token";
 
 // 1. Specify protected and public routes
 const protectedRoutes = "/dashboard";
-const publicRoutes = "/";
+const sellerRoutes = "/sellerp";
+// const publicRoutes = "/";
 
 export default async function middleware(req: NextRequest) {
-  // 2. Check if the current route is protected or public
+  // 2. Get current path
   const path = req.nextUrl.pathname;
   const isProtectedRoute = path.startsWith(protectedRoutes);
-  const isPublicRoute = path.startsWith(publicRoutes);
+  const isSellerRoute = path.startsWith(sellerRoutes);
+  const isPublicRoute = path === "/";
 
-  // 3. Decrypt the session from the cookie
+  // 3. Get session tokens
   const accessToken = (await cookies()).get("accessToken")?.value;
   const refreshToken = (await cookies()).get("refreshToken")?.value;
+  const userRole = (await cookies()).get("userRole")?.value;
+
   const isLogin = accessToken && refreshToken;
   const isLogout = !accessToken && !refreshToken;
   const needToRefresh = !accessToken && refreshToken;
+
+  // 4. Refresh token if needed
   if (needToRefresh) {
     await refreshTokenAction();
     return NextResponse.redirect(new URL(req.nextUrl, req.nextUrl));
   }
-  // 4. Redirect to /login if the user is not authenticated
-  if (isProtectedRoute && isLogout) {
+
+  // 5. Redirect to login if user is not authenticated
+  if ((isProtectedRoute || isSellerRoute) && isLogout) {
     return NextResponse.redirect(new URL("/auth/login", req.nextUrl));
   }
 
-  // 5. Redirect to /dashboard if the user is authenticated
-  if (isPublicRoute && !isProtectedRoute && isLogin) {
-    return NextResponse.redirect(new URL("/dashboard", req.nextUrl));
+  // 6. Redirect to dashboard if user is authenticated
+  if (isPublicRoute && isLogin) {
+    if (userRole === "seller") {
+      return NextResponse.redirect(new URL("/sellerp", req.nextUrl));
+    } else {
+      return NextResponse.redirect(new URL("/dashboard", req.nextUrl));
+    }
   }
 
   return NextResponse.next();
