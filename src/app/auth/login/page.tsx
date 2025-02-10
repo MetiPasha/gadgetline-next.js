@@ -75,16 +75,21 @@ const StyledRegisterLink = styled(Link)({
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
+  const [role, setRole] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState<{ email?: string; password?: string }>(
     {}
   );
   const [isLoading, setIsLoading] = useState(false);
-  const [showPassword, setShowPassword] = useState(false); // اضافه کردن وضعیت برای نمایش/مخفی کردن پسورد
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
     setErrors((prev) => ({ ...prev, email: "" }));
+  };
+  const handleRoleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setRole(e.target.value);
+    setErrors((prev) => ({ ...prev, role: "" }));
   };
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -93,7 +98,7 @@ const LoginPage = () => {
   };
 
   const handleClickShowPassword = () => {
-    setShowPassword((prev) => !prev); // تغییر وضعیت نمایش/مخفی بودن پسورد
+    setShowPassword((prev) => !prev);
   };
   const [state, action, pending] = useActionState(login, {
     message: "",
@@ -173,9 +178,31 @@ const LoginPage = () => {
             margin="normal"
             required
             fullWidth
+            id="role"
+            label="رول"
+            name="role"
+            autoComplete="role"
+            autoFocus
+            value={role}
+            onChange={handleRoleChange}
+            error={!!errors.role}
+            helperText={errors.role}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <EmailIcon color="action" />
+                </InputAdornment>
+              ),
+            }}
+          />
+          <StyledTextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
             name="password"
             label="رمز عبور"
-            type={showPassword ? "text" : "password"} // اگر showPassword true باشد، پسورد نمایش داده می‌شود
+            type={showPassword ? "text" : "password"}
             id="password"
             autoComplete="current-password"
             value={password}
@@ -191,11 +218,11 @@ const LoginPage = () => {
               endAdornment: (
                 <InputAdornment position="end">
                   <Button
-                    onClick={handleClickShowPassword} // با کلیک بر روی آیکون چشم وضعیت نمایش/مخفی شدن پسورد تغییر می‌کند
+                    onClick={handleClickShowPassword}
                     edge="end"
                     sx={{ color: "gray" }}
                   >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                    {showPassword ? <Visibility /> : <VisibilityOff />}
                   </Button>
                 </InputAdornment>
               ),
