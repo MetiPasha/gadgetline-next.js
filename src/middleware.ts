@@ -15,6 +15,7 @@ export default async function middleware(req: NextRequest) {
   const isPublicRoute = path === "/";
 
   // 3. Get session tokens
+
   const accessToken = (await cookies()).get("accessToken")?.value;
   const refreshToken = (await cookies()).get("refreshToken")?.value;
   const userRole = (await cookies()).get("userRole")?.value;

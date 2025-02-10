@@ -87,33 +87,6 @@ const RegistrationForm: React.FC = () => {
     message: "",
   });
 
-  // const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault();
-
-  //   // اعتبارسنجی فرم با استفاده از validateFormData که در registerValidation.ts است
-  //   const validationResult = validateFormData(formData);
-
-  //   if (validationResult.isValid) {
-  //     setLoading(true);
-  //     try {
-  //       await new Promise((resolve) => setTimeout(resolve, 2000)); // شبیه‌سازی درخواست API
-  //       console.log("Form submitted:", formData);
-  //       // پاک کردن فیلدها بعد از ارسال
-  //       dispatch({ type: "SET_FIELD", field: "firstName", value: "" });
-  //       dispatch({ type: "SET_FIELD", field: "lastName", value: "" });
-  //       dispatch({ type: "SET_FIELD", field: "email", value: "" });
-  //       dispatch({ type: "SET_FIELD", field: "password", value: "" });
-  //     } catch (error) {
-  //       console.error("Submission error:", error);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   } else {
-  //     // نمایش ارورها
-  //     setErrors(validationResult.errors);
-  //   }
-  // };
-
   return (
     <Container
       sx={{

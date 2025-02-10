@@ -10,11 +10,13 @@ import {
   InputAdornment,
   CircularProgress,
 } from "@mui/material";
+
 import { styled } from "@mui/system";
 import EmailIcon from "@mui/icons-material/Email";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
 // import { validateLoginData } from "@/lib/loginValidation"; // ایمپورت تابع validateLoginData
 import { login } from "@/actions/auth/login";
 
@@ -77,9 +79,11 @@ const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [role, setRole] = useState("");
   const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState<{ email?: string; password?: string }>(
-    {}
-  );
+  const [errors, setErrors] = useState<{
+    email?: string;
+    password?: string;
+    role?: string;
+  }>({});
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
@@ -104,22 +108,6 @@ const LoginPage = () => {
     message: "",
     errors: {},
   });
-  // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault();
-
-  //   // اعتبارسنجی داده‌ها با استفاده از تابع validateLoginData
-  //   const validationResult = validateLoginData({ email, password });
-
-  //   if (validationResult.isValid) {
-  //     setIsLoading(true);
-  //     setTimeout(() => {
-  //       setIsLoading(false);
-  //       console.log("ورود با موفقیت انجام شد", { email, password });
-  //     }, 2000);
-  //   } else {
-  //     setErrors(validationResult.errors);
-  //   }
-  // };
 
   return (
     <Box
@@ -190,7 +178,7 @@ const LoginPage = () => {
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <EmailIcon color="action" />
+                  <SupervisorAccountIcon color="action" />
                 </InputAdornment>
               ),
             }}
@@ -219,7 +207,7 @@ const LoginPage = () => {
                 <InputAdornment position="end">
                   <Button
                     onClick={handleClickShowPassword}
-                    edge="end"
+                    // edge="end"
                     sx={{ color: "gray" }}
                   >
                     {showPassword ? <Visibility /> : <VisibilityOff />}
