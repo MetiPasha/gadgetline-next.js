@@ -45,7 +45,16 @@ const MobileCard: React.FC<ProductCardProps> = ({
         },
       }}
     >
-      <CardMedia component="img" height="200" image={image} alt={title} />
+      <CardMedia
+        component="img"
+        height="200"
+        image={image}
+        alt={title}
+        sx={{
+          objectFit: "contain", // نمایش کامل تصویر بدون برش
+          objectPosition: "top", // تمرکز بر قسمت بالایی تصویر
+        }}
+      />
       <CardContent>
         <Typography variant="h6" fontWeight="bold">
           {title}
