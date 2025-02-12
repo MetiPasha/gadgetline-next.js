@@ -1,4 +1,4 @@
-import React from "react";
+"use client";
 import {
   Card,
   CardContent,
@@ -6,7 +6,7 @@ import {
   Typography,
   Button,
 } from "@mui/material";
-import { Box } from "@mui/system";
+import { Box, keyframes } from "@mui/system";
 
 interface ProductCardProps {
   image: string;
@@ -16,6 +16,14 @@ interface ProductCardProps {
   ram: string;
 }
 
+const bounceAnimation = keyframes`
+  0% { transform: translateY(0); }
+  30% { transform: translateY(-10px); }
+  50% { transform: translateY(0); }
+  70% { transform: translateY(-5px); }
+  100% { transform: translateY(0); }
+`;
+
 const LaptopCard: React.FC<ProductCardProps> = ({
   image,
   title,
@@ -24,7 +32,19 @@ const LaptopCard: React.FC<ProductCardProps> = ({
   ram,
 }) => {
   return (
-    <Card sx={{ maxWidth: 300, boxShadow: 3, borderRadius: 2, ml: 10 }}>
+    <Card
+      sx={{
+        maxWidth: 300,
+        boxShadow: 3,
+        borderRadius: 2,
+        ml: 10,
+        transition: "box-shadow 0.3s ease",
+        "&:hover": {
+          animation: `${bounceAnimation} 0.6s ease`,
+          boxShadow: "0 8px 20px rgba(0, 123, 255, 0.3)",
+        },
+      }}
+    >
       <CardMedia component="img" height="200" image={image} alt={title} />
       <CardContent>
         <Typography variant="h6" fontWeight="bold">

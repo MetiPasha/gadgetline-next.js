@@ -8,6 +8,7 @@ import Footer from "@/components/shared/Footer";
 import { Box } from "@mui/material";
 import MobileList from "@/components/home/MobileList";
 import LaptopCard from "@/components/home/LaptopList";
+import ReadingSection from "@/components/home/ReadingSection";
 
 // import ProductDetail from "@/components/ProductDetail";
 
@@ -20,6 +21,7 @@ const Home = () => {
       <Product />
       <MobileList />
       <LaptopCard />
+      <ReadingSection />
       <Footer />
       {/* <ProductDetail /> */}
     </Box>
