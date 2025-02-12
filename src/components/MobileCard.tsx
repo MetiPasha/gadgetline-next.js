@@ -51,8 +51,8 @@ const MobileCard: React.FC<ProductCardProps> = ({
         image={image}
         alt={title}
         sx={{
-          objectFit: "contain", // نمایش کامل تصویر بدون برش
-          objectPosition: "top", // تمرکز بر قسمت بالایی تصویر
+          objectFit: "contain",
+          objectPosition: "top",
         }}
       />
       <CardContent>
