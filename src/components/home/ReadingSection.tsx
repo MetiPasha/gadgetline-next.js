@@ -21,7 +21,7 @@ const articles: ArticleProps[] = [
   {
     image: "/assets/home/reading/detective.jpg",
     title: "معرفی سریال True Detective",
-    description: "یک ملودرام تاریخی دیگر از تینا پاکروان",
+    description: "یک سریال عالی از فوکوناگا",
     link: "https://www.tarafdari.com/node/2414980",
   },
   {
