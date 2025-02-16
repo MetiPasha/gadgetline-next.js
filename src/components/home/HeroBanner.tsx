@@ -8,9 +8,9 @@ import { Autoplay, EffectFade } from "swiper/modules";
 const images = [
   "/assets/home/Hbanner1.webp",
   "/assets/home/Hbanner2.webp",
-  "/assets/home/Hbanner3.webp",
   "/assets/home/Hbanner4.webp",
-  "/assets/home/Hbanner5.webp",
+  "/assets/home/Hbanner9.jpg",
+  "/assets/home/Hbanner6.jpg",
 ];
 
 const HeroBanner = () => {

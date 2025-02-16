@@ -9,7 +9,7 @@ const HomeBanners = () => {
             <CardMedia
               component="img"
               height="250"
-              image="/assets/home/banner1.webp"
+              image="/assets/home/banner11.jpg"
               alt="بنر تخفیف لوازم آرایشی"
             />
           </Card>
@@ -20,7 +20,7 @@ const HomeBanners = () => {
             <CardMedia
               component="img"
               height="250"
-              image="/assets/home/banner1.webp"
+              image="/assets/home/banner2.jpg"
               alt="بنر تخفیف کرم ضد آفتاب"
             />
           </Card>
