@@ -12,43 +12,37 @@ import {
 import { LocalOffer, ShoppingCart, Favorite } from "@mui/icons-material";
 
 const ProductDetail: React.FC = () => {
-  // State برای ذخیره تصویر فعلی (تصویر اصلی) و رنگ انتخابی
-  const [mainImage, setMainImage] = useState("/assets/product/black3.jpg"); // تصویر پیش‌فرض
-  const [selectedColor, setSelectedColor] = useState("black"); // رنگ پیش‌فرض
-  const [comments, setComments] = useState<string[]>([]); // نظرات کاربران
-  const [newComment, setNewComment] = useState<string>(""); // کامنت جدید
+  const [mainImage, setMainImage] = useState("/assets/product/black3.jpg");
+  const [selectedColor, setSelectedColor] = useState("black");
+  const [comments, setComments] = useState<string[]>([]);
+  const [newComment, setNewComment] = useState<string>("");
 
-  // لیستی از تصاویر محصول
   const thumbnails = [
     "/assets/product/black3.jpg",
     "/assets/product/black2.jpg",
     "/assets/product/black4.jpg",
   ];
 
-  // لیستی از رنگ‌های موجود
   const colorOptions = [
     { color: "black", label: "سیاه" },
     { color: "blue", label: "آبی" },
     { color: "red", label: "قرمز" },
   ];
 
-  // تابع تغییر رنگ تصویر بر اساس انتخاب رنگ
   const handleColorChange = (color: string) => {
     setSelectedColor(color);
   };
 
-  // تابع ارسال کامنت جدید
   const handleAddComment = () => {
     if (newComment.trim()) {
       setComments([...comments, newComment]);
-      setNewComment(""); // پاک کردن فیلد کامنت بعد از ارسال
+      setNewComment("");
     }
   };
 
   return (
     <Box sx={{ p: 4 }}>
       <Paper elevation={3} sx={{ p: 4 }}>
-        {/* بخش اصلی با Flexbox */}
         <Box
           sx={{
             display: "flex",
@@ -56,25 +50,22 @@ const ProductDetail: React.FC = () => {
             gap: 4,
           }}
         >
-          {/* بخش تصویر محصول */}
           <Box sx={{ flex: 1 }}>
-            {/* تصویر اصلی */}
             <Box
               component="img"
-              src={mainImage} // تصویر اصلی بر اساس state
+              src={mainImage}
               alt="Product Image"
               sx={{
                 width: "100%",
                 borderRadius: 2,
-                marginBottom: "1rem", // فاصله بین تصویر اصلی و تصاویر کوچک
+                marginBottom: "1rem",
               }}
             />
 
-            {/* تصاویر کوچک (thumbnails) */}
             <Box
               sx={{
                 display: "flex",
-                gap: 2, // فاصله بین تصاویر کوچک
+                gap: 2,
                 justifyContent: "center",
               }}
             >
@@ -84,7 +75,7 @@ const ProductDetail: React.FC = () => {
                   component="img"
                   src={thumbnail}
                   alt={`Thumbnail ${index + 1}`}
-                  onClick={() => setMainImage(thumbnail)} // تغییر تصویر اصلی هنگام کلیک
+                  onClick={() => setMainImage(thumbnail)}
                   sx={{
                     width: "70px",
                     height: "70px",
@@ -93,7 +84,7 @@ const ProductDetail: React.FC = () => {
                     border:
                       mainImage === thumbnail
                         ? "2px solid #1976d2"
-                        : "2px solid transparent", // هایلایت تصویر انتخاب شده
+                        : "2px solid transparent",
                     transition: "border 0.3s ease",
                   }}
                 />
@@ -101,7 +92,6 @@ const ProductDetail: React.FC = () => {
             </Box>
           </Box>
 
-          {/* بخش جزئیات محصول */}
           <Box sx={{ flex: 1 }}>
             <Typography variant="h4" gutterBottom>
               هدفون xx99 Mark
@@ -109,8 +99,6 @@ const ProductDetail: React.FC = () => {
             <Typography variant="subtitle1" color="text.secondary" gutterBottom>
               امتیاز ⭐4
             </Typography>
-
-            {/* قیمت محصول */}
             <Box sx={{ my: 2 }}>
               <Typography variant="h5" color="primary">
                 قیمت $50
@@ -123,10 +111,8 @@ const ProductDetail: React.FC = () => {
               />
             </Box>
 
-            {/* Divider برای جدا کردن بخش‌ها */}
             <Divider sx={{ my: 2 }} />
 
-            {/* ویژگی‌های محصول */}
             <Box sx={{ my: 2 }}>
               <Typography variant="h6" gutterBottom>
                 ویژگی‌ها:
@@ -147,7 +133,6 @@ const ProductDetail: React.FC = () => {
               </Box>
             </Box>
 
-            {/* بخش رنگ‌بندی */}
             <Box sx={{ my: 2 }}>
               <Typography variant="h6" gutterBottom>
                 رنگ‌بندی محصول:
@@ -165,7 +150,7 @@ const ProductDetail: React.FC = () => {
                       cursor: "pointer",
                       border:
                         selectedColor === option.color
-                          ? "3px solid #1976d2" // رنگ هایلایت برای انتخاب رنگ
+                          ? "3px solid #1976d2"
                           : "none",
                       transition: "border 0.3s ease",
                     }}
@@ -174,10 +159,8 @@ const ProductDetail: React.FC = () => {
               </Box>
             </Box>
 
-            {/* Divider برای جدا کردن بخش‌ها */}
             <Divider sx={{ my: 2 }} />
 
-            {/* دکمه‌های اقدام */}
             <Box sx={{ mt: 4 }}>
               <Button
                 variant="contained"
@@ -198,10 +181,8 @@ const ProductDetail: React.FC = () => {
           </Box>
         </Box>
 
-        {/* Divider برای جدا کردن بخش توضیحات بیشتر */}
         <Divider sx={{ my: 4 }} />
 
-        {/* بخش توضیحات بیشتر */}
         <Box sx={{ mt: 4 }}>
           <Typography variant="h6" gutterBottom>
             توضیحات محصول:
@@ -213,16 +194,13 @@ const ProductDetail: React.FC = () => {
           </Typography>
         </Box>
 
-        {/* Divider برای جدا کردن بخش کامنت‌ها */}
         <Divider sx={{ my: 4 }} />
 
-        {/* بخش کامنت‌ها */}
         <Box sx={{ mt: 4 }}>
           <Typography variant="h6" gutterBottom>
             نظرات کاربران:
           </Typography>
 
-          {/* نمایش نظرات */}
           <Box sx={{ my: 2 }}>
             {comments.length > 0 ? (
               comments.map((comment, index) => (
@@ -240,7 +218,6 @@ const ProductDetail: React.FC = () => {
             )}
           </Box>
 
-          {/* فرم ارسال کامنت */}
           <Box sx={{ mt: 2 }}>
             <TextField
               label="نظر خود را بنویسید"
