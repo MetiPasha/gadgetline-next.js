@@ -1,17 +1,17 @@
 "use server";
 import "server-only";
 
-import { BASE_URL } from "@/config.server";
-import { IProduct, PaginatedResultApi } from "./types";
+import { ADMIN_BASE_URL } from "@/config.server";
+import type { IProduct, PaginatedResultApi } from "./types";
 import { revalidateTag } from "next/cache";
 import { apiFetch } from "./base";
-import { ProductType } from "@/lib/validations";
+import type { ProductType } from "@/lib/validations";
 
 // Create a new Product
 export const createProduct = async (
   body: Partial<ProductType>
 ): Promise<IProduct> => {
-  return apiFetch<IProduct>(`${BASE_URL}/products`, {
+  return apiFetch<IProduct>(`${ADMIN_BASE_URL}/products`, {
     method: "POST",
     body: JSON.stringify(body),
   });
@@ -22,16 +22,12 @@ export const updateProduct = async (
   id: string,
   body: Partial<ProductType>
 ): Promise<IProduct> => {
-  try {
-    const data = await apiFetch<IProduct>(`${BASE_URL}/products/${id}`, {
-      method: "PUT",
-      body: JSON.stringify(body),
-    });
-    revalidateTag(`products-${id}`);
-    return data;
-  } catch (e) {
-    throw e;
-  }
+  const data = await apiFetch<IProduct>(`${ADMIN_BASE_URL}/products/${id}`, {
+    method: "PUT",
+    body: JSON.stringify(body),
+  });
+  revalidateTag(`products-${id}`);
+  return data;
 };
 
 // Get a paginated list of products
@@ -40,28 +36,28 @@ export const getProducts = async (
 ): Promise<PaginatedResultApi<IProduct>> => {
   const search = new URLSearchParams(params as Record<string, string>);
   return apiFetch<PaginatedResultApi<IProduct>>(
-    `${BASE_URL}/products?${search.toString()}`,
+    `${ADMIN_BASE_URL}/products?${search.toString()}`,
     {
       cache: "no-store",
     }
   );
 };
 
+// Get a Product by its ID
+export const getProductById = async (id: string): Promise<IProduct> => {
+  return apiFetch<IProduct>(`${ADMIN_BASE_URL}/products/${id}`, {
+    cache: "no-store",
+    next: {
+      tags: ["allSingleProduct", `products-${id}`],
+    },
+  });
+};
+
 // Delete a Product
 export const deleteProduct = async (
   id: string
 ): Promise<{ message: string }> => {
-  return apiFetch<{ message: string }>(`${BASE_URL}/products/${id}`, {
+  return apiFetch<{ message: string }>(`${ADMIN_BASE_URL}/products/${id}`, {
     method: "DELETE",
-  });
-};
-
-// Get a Product by its ID
-export const getProductById = async (id: string): Promise<IProduct> => {
-  return apiFetch<IProduct>(`${BASE_URL}/products/${id}`, {
-    cache: "force-cache",
-    next: {
-      tags: ["allSingleProduct", `products-${id}`],
-    },
   });
 };

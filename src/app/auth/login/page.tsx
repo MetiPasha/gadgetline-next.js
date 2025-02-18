@@ -16,7 +16,6 @@ import EmailIcon from "@mui/icons-material/Email";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
 // import { validateLoginData } from "@/lib/loginValidation"; // ایمپورت تابع validateLoginData
 import { login } from "@/actions/auth/login";
 
@@ -77,7 +76,6 @@ const StyledRegisterLink = styled(Link)({
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
-  const [role, setRole] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState<{
     email?: string;
@@ -90,10 +88,6 @@ const LoginPage = () => {
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
     setErrors((prev) => ({ ...prev, email: "" }));
-  };
-  const handleRoleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setRole(e.target.value);
-    setErrors((prev) => ({ ...prev, role: "" }));
   };
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -161,28 +155,7 @@ const LoginPage = () => {
               ),
             }}
           />
-          <StyledTextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="role"
-            label="رول"
-            name="role"
-            autoComplete="role"
-            autoFocus
-            value={role}
-            onChange={handleRoleChange}
-            error={!!errors.role}
-            helperText={errors.role}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <SupervisorAccountIcon color="action" />
-                </InputAdornment>
-              ),
-            }}
-          />
+
           <StyledTextField
             variant="outlined"
             margin="normal"

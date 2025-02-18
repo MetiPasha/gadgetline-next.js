@@ -157,6 +157,7 @@ const RegistrationForm: React.FC = () => {
           </Box>
 
           <form action={action}>
+            <input hidden defaultValue={1} name="role" />
             <TextField
               fullWidth
               label="نام"

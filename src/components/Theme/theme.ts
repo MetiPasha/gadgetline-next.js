@@ -1,25 +1,25 @@
 import { colors, createTheme } from "@mui/material";
 
 const theme = createTheme({
-  direction: "rtl", // تنظیم جهت راست به چپ برای زبان فارسی
+  direction: "rtl",
   typography: {
-    fontFamily: "vazirmatn", // فونت انتخابی شما
+    fontFamily: "vazirmatn",
   },
   palette: {
     primary: {
-      main: "#3d73e6", // رنگ اصلی آبی
-      light: "#3841b3", // رنگ روشن آبی
-      dark: "#3c62d3", // رنگ تیره آبی
-      contrastText: "#ffffff", // رنگ متن برای کنتراست
+      main: "#3d73e6",
+      light: "#3841b3",
+      dark: "#3c62d3",
+      contrastText: "#ffffff",
     },
     secondary: {
-      main: "#191c1d", // رنگ اصلی مشکی
-      light: "#393c3d", // رنگ روشن مشکی
-      dark: "#575b5c", // رنگ تیره مشکی
-      contrastText: "#ffffff", // رنگ متن برای کنتراست
+      main: "#191c1d",
+      light: "#393c3d",
+      dark: "#575b5c",
+      contrastText: "#ffffff",
     },
     background: {
-      default: colors.grey[200], // رنگ پس‌زمینه پیش‌فرض
+      default: colors.grey[200],
     },
   },
 });

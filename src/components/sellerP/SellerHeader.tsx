@@ -13,7 +13,7 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
-import SearchIconWrapper from "../dashboard-layout/components/SearchIconWrapper";
+import SearchIconWrapper from "../admin/dashboard-layout/components/SearchIconWrapper";
 import Search from "./components/Search";
 import StyledInputBase from "./components/StyleInputBase";
 import { AppBar } from "./components/HeaderAppBar";
