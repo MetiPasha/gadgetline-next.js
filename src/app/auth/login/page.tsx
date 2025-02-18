@@ -10,6 +10,7 @@ import {
   InputAdornment,
   CircularProgress,
 } from "@mui/material";
+
 import { styled } from "@mui/system";
 import EmailIcon from "@mui/icons-material/Email";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -76,11 +77,13 @@ const StyledRegisterLink = styled(Link)({
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState<{ email?: string; password?: string }>(
-    {}
-  );
+  const [errors, setErrors] = useState<{
+    email?: string;
+    password?: string;
+    role?: string;
+  }>({});
   const [isLoading, setIsLoading] = useState(false);
-  const [showPassword, setShowPassword] = useState(false); // اضافه کردن وضعیت برای نمایش/مخفی کردن پسورد
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -93,28 +96,12 @@ const LoginPage = () => {
   };
 
   const handleClickShowPassword = () => {
-    setShowPassword((prev) => !prev); // تغییر وضعیت نمایش/مخفی بودن پسورد
+    setShowPassword((prev) => !prev);
   };
   const [state, action, pending] = useActionState(login, {
     message: "",
     errors: {},
   });
-  // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault();
-
-  //   // اعتبارسنجی داده‌ها با استفاده از تابع validateLoginData
-  //   const validationResult = validateLoginData({ email, password });
-
-  //   if (validationResult.isValid) {
-  //     setIsLoading(true);
-  //     setTimeout(() => {
-  //       setIsLoading(false);
-  //       console.log("ورود با موفقیت انجام شد", { email, password });
-  //     }, 2000);
-  //   } else {
-  //     setErrors(validationResult.errors);
-  //   }
-  // };
 
   return (
     <Box
@@ -168,6 +155,7 @@ const LoginPage = () => {
               ),
             }}
           />
+
           <StyledTextField
             variant="outlined"
             margin="normal"
@@ -175,7 +163,7 @@ const LoginPage = () => {
             fullWidth
             name="password"
             label="رمز عبور"
-            type={showPassword ? "text" : "password"} // اگر showPassword true باشد، پسورد نمایش داده می‌شود
+            type={showPassword ? "text" : "password"}
             id="password"
             autoComplete="current-password"
             value={password}
@@ -191,11 +179,11 @@ const LoginPage = () => {
               endAdornment: (
                 <InputAdornment position="end">
                   <Button
-                    onClick={handleClickShowPassword} // با کلیک بر روی آیکون چشم وضعیت نمایش/مخفی شدن پسورد تغییر می‌کند
-                    edge="end"
+                    onClick={handleClickShowPassword}
+                    // edge="end"
                     sx={{ color: "gray" }}
                   >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                    {showPassword ? <Visibility /> : <VisibilityOff />}
                   </Button>
                 </InputAdornment>
               ),

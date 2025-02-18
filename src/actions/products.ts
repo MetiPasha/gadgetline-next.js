@@ -6,7 +6,8 @@ import {
 } from "@/api/server-api/products";
 import { ApiError } from "@/api/server-api/base";
 import { ensureAuthenticated } from "@/lib/session";
-import { ProductFormState, ProductSchemaZod } from "@/lib/validations";
+import type { ProductFormState} from "@/lib/validations";
+import { ProductSchemaZod } from "@/lib/validations";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { formDataToObject } from "@/lib/utils";
@@ -21,7 +22,7 @@ export async function createOrUpdateProductAction(
   const validatedFields = ProductSchemaZod.safeParse(
     formDataToObject(formData)
   );
-
+  console.log(validatedFields.data);
   if (!validatedFields.success) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
@@ -47,7 +48,7 @@ export async function createOrUpdateProductAction(
       };
     }
   }
-  redirect("/dashboard/products");
+  redirect("/admin/dashboard/products");
 }
 
 export async function deleteProductAction(id: string) {
