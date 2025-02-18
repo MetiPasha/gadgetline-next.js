@@ -5,18 +5,17 @@ import Hero from "@/components/Hero";
 import Dashboard from "@/components/home/Dashboard";
 import Product from "@/components/Product";
 import Footer from "@/components/shared/Footer";
-
+import { Box } from "@mui/material";
 
 const Home = () => {
   return (
-    <div>
+    <Box>
       <Header />
       <Hero />
       <Dashboard />
       <Product />
       <Footer />
-      
-    </div>
+    </Box>
   );
 };
 
