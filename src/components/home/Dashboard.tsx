@@ -52,7 +52,7 @@ const Dashboard: React.FC = () => {
             }}
           >
             <Link
-              href="/laptop" // Link for Laptop category
+              href="/categories/laptop" // Link for Laptop category
               style={{
                 textDecoration: "none", // Remove underline
                 color: "inherit", // Inherit text color from parent
@@ -81,36 +81,7 @@ const Dashboard: React.FC = () => {
             }}
           >
             <Link
-              href="/headphones" // Link for Headphones category
-              style={{
-                textDecoration: "none", // Remove underline
-                color: "inherit", // Inherit text color from parent
-                textAlign: "center", // Center text below icon
-              }}
-            >
-              <HeadphonesIcon
-                style={{ fontSize: 30, color: theme.palette.primary.main }} // Icon size and color
-              />
-              <Typography
-                variant="body1"
-                style={{ marginTop: "0.5rem", fontWeight: "700" }} // Styling the text
-              >
-                هدفون
-              </Typography>
-            </Link>
-          </li>
-
-          {/* Smartphone */}
-          <li
-            style={{
-              display: "flex",
-              flexDirection: "column", // Align icon and text vertically
-              alignItems: "center", // Center align icon and text
-              cursor: "pointer", // Change cursor to pointer when hovered
-            }}
-          >
-            <Link
-              href="/smartphone" // Link for Smartphone category
+              href="/categories/phone" // Link for Headphones category
               style={{
                 textDecoration: "none", // Remove underline
                 color: "inherit", // Inherit text color from parent
@@ -125,6 +96,35 @@ const Dashboard: React.FC = () => {
                 style={{ marginTop: "0.5rem", fontWeight: "700" }} // Styling the text
               >
                 موبایل
+              </Typography>
+            </Link>
+          </li>
+
+          {/* Smartphone */}
+          <li
+            style={{
+              display: "flex",
+              flexDirection: "column", // Align icon and text vertically
+              alignItems: "center", // Center align icon and text
+              cursor: "pointer", // Change cursor to pointer when hovered
+            }}
+          >
+            <Link
+              href="/headphones" // Link for Smartphone category
+              style={{
+                textDecoration: "none", // Remove underline
+                color: "inherit", // Inherit text color from parent
+                textAlign: "center", // Center text below icon
+              }}
+            >
+              <HeadphonesIcon
+                style={{ fontSize: 30, color: theme.palette.primary.main }} // Icon size and color
+              />
+              <Typography
+                variant="body1"
+                style={{ marginTop: "0.5rem", fontWeight: "700" }} // Styling the text
+              >
+                هدفون
               </Typography>
             </Link>
           </li>

@@ -18,6 +18,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { AccountCircle, ShoppingCart } from "@mui/icons-material";
 import Cart from "@/components/Cart";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const Header = () => {
   const theme = useTheme(); // Get the current theme for styling.
@@ -76,7 +77,9 @@ const Header = () => {
               color: theme.palette.secondary.light, // Styled using theme.
             }}
           >
-            گجت لاین
+            <Link href="/" style={{ textDecoration: "none", color: "inherit" }}>
+              گجت لاین
+            </Link>
           </Typography>
 
           {/* Category Menu Button */}
@@ -97,9 +100,17 @@ const Header = () => {
             open={Boolean(anchorEl)} // Menu visibility.
             onClose={handleMenuClose} // Closes the menu.
           >
-            <MenuItem onClick={handleMenuClose}>لپ تاپ</MenuItem>
+            <Link href="/categories/laptop" passHref legacyBehavior>
+              <MenuItem onClick={handleMenuClose} component="a">
+                لپ تاپ
+              </MenuItem>
+            </Link>
+            <Link href="/categories/phone" passHref legacyBehavior>
+              <MenuItem onClick={handleMenuClose} component="a">
+                موبایل
+              </MenuItem>
+            </Link>
             <MenuItem onClick={handleMenuClose}>هدفون</MenuItem>
-            <MenuItem onClick={handleMenuClose}>موبایل</MenuItem>
           </Menu>
 
           {/* Search Bar */}
