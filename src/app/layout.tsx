@@ -3,6 +3,7 @@ import { Vazirmatn } from "next/font/google";
 import ThemeProvider from "@/components/Theme/ThemeProvider";
 import "./globals.css";
 import { Box } from "@mui/material";
+import QueryProvider from "@/components/QueryProvider";
 
 const vazir = Vazirmatn({
   variable: "--font-vazir-sans",
@@ -21,15 +22,17 @@ export default function RootLayout({
 }>) {
   return (
     <html dir="rtl" lang="fa">
-      <ThemeProvider>
-        <Box
-          bgcolor="background.paper"
-          className={`${vazir.variable}`}
-          component="body"
-        >
-          {children}
-        </Box>
-      </ThemeProvider>
+      <QueryProvider>
+        <ThemeProvider>
+          <Box
+            bgcolor="background.paper"
+            className={`${vazir.variable}`}
+            component="body"
+          >
+            {children}
+          </Box>
+        </ThemeProvider>
+      </QueryProvider>
     </html>
   );
 }

@@ -143,7 +143,7 @@ export default function DashboardHeader() {
             sx={{ display: { xs: "none", sm: "block" } }}
             variant="h6"
           >
-            MUI
+            گجت لاین
           </Typography>
           <Search>
             <SearchIconWrapper>

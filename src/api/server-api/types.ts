@@ -179,3 +179,22 @@ export interface IOrderItem {
   order: string;
   seller: ISeller;
 }
+export interface IShopProducts extends Timestamp {
+  images: {
+    main: string;
+    list: string[];
+  };
+  colors: IColor[];
+  code: number;
+  titleFa: string;
+  titleEn: string;
+  status: "marketable" | "unmarketable";
+  badges: IBadge;
+  category: ICategory;
+  brand: IBrand;
+  review: string;
+  specifications: IPropertyValue[];
+  expert_review: string;
+  id: string;
+  bestSeller?: SellerInfo;
+}

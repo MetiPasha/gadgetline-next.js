@@ -2,7 +2,7 @@ import React from "react";
 import { Box } from "@mui/material";
 import LaptopCard from "../LaptopCard";
 
-const LaptopList = () => {
+const LaptopList = ({}) => {
   const products = [
     {
       image: "assets/home/laptop/asusVivobook1.webp",

@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import Link from "next/link";
-import Button from "@/components/Button"; // استفاده از دکمه‌ای که بر اساس تم است
+import Button from "@/components/Button";
 import Image from "next/image";
 
 const Cart = () => {
@@ -8,7 +8,6 @@ const Cart = () => {
     <Box>
       <Typography variant="h6">سبد خرید</Typography>
 
-      {/* نمایش آیتم‌های سبد */}
       <Box
         sx={{
           display: "flex",
@@ -60,9 +59,8 @@ const Cart = () => {
         <Typography>100$</Typography>
       </Box>
 
-      {/* دکمه پرداخت */}
       <Button
-        color="primary" // استفاده از primary برای تم آبی روشن
+        color="primary"
         variant="contained"
         sx={{
           width: "100%",

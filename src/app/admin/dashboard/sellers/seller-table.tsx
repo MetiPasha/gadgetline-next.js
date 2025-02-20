@@ -53,7 +53,7 @@ export function SellerTable({
           },
           {
             title: "کاربر",
-            render: (row) => row.user.email,
+            render: (row) => row.user?.email,
           },
         ]}
       />
