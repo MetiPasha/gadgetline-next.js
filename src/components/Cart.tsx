@@ -2,61 +2,81 @@ import { Box, Typography } from "@mui/material";
 import Link from "next/link";
 import Button from "@/components/Button";
 import Image from "next/image";
+import ProductList from "./productList";
 
-const Cart = () => {
+interface CartItem {
+  id: number;
+  name: string;
+  price: number;
+  image: string;
+  quantity: number;
+}
+
+interface CartProps {
+  cartItems: CartItem[];
+}
+
+const Cart = ({ cartItems = [] }: CartProps) => {
+  const total = cartItems.reduce(
+    (acc, item) => acc + item.price * item.quantity,
+    0
+  );
+
   return (
     <Box>
       <Typography variant="h6">سبد خرید</Typography>
 
-      <Box
-        sx={{
-          display: "flex",
-          margin: "1rem 0",
-          justifyContent: "space-between",
-        }}
-      >
-        <Box sx={{ display: "flex" }}>
-          <Image
-            src="/assets/home/headphoneZ.jpg"
-            width={50}
-            height={50}
-            alt=""
-          />
+      {cartItems.length === 0 ? (
+        <Typography variant="body2">سبد خرید شما خالی است</Typography>
+      ) : (
+        cartItems.map((item) => (
           <Box
+            key={item.id}
             sx={{
               display: "flex",
-              flexDirection: "column",
-              marginRight: "1rem",
+              margin: "1rem 0",
+              justifyContent: "space-between",
             }}
           >
-            <Typography variant="body1" sx={{ marginLeft: "0.3rem" }}>
-              Headphone Z
-            </Typography>
-            <Typography
-              variant="body2"
-              sx={{ color: " #6f7275", marginLeft: "0.3rem" }}
+            <Box sx={{ display: "flex" }}>
+              <Image src={item.image} width={50} height={50} alt={item.name} />
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  marginRight: "1rem",
+                }}
+              >
+                <Typography variant="body1" sx={{ marginLeft: "0.3rem" }}>
+                  {item.name}
+                </Typography>
+                <Typography
+                  variant="body2"
+                  sx={{ color: "#6f7275", marginLeft: "0.3rem" }}
+                >
+                  ${item.price}
+                </Typography>
+              </Box>
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "flex-start",
+              }}
             >
-              $50
-            </Typography>
+              <Typography sx={{ fontSize: "0.75rem" }}>تعداد</Typography>
+              <Typography variant="body1" sx={{ fontWeight: 800 }}>
+                {item.quantity}
+              </Typography>
+            </Box>
           </Box>
-        </Box>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "flex-start",
-          }}
-        >
-          <Typography sx={{ fontSize: "0.75rem" }}>تعداد</Typography>
-          <Typography variant="body1" sx={{ fontWeight: 800 }}>
-            1
-          </Typography>
-        </Box>
-      </Box>
+        ))
+      )}
 
       <Box sx={{ display: "flex", justifyContent: "space-between" }}>
         <Typography>جمع کل</Typography>
-        <Typography>100$</Typography>
+        <Typography>${total}</Typography>
       </Box>
 
       <Button
