@@ -142,6 +142,16 @@ const CartPage = () => {
           </Box>
         </>
       )}
+      <Link href={"/payment"}>
+        <Button
+          variant="contained"
+          color="secondary"
+          size="large"
+          sx={{ mt: 2, width: "100%" }}
+        >
+          پرداخت
+        </Button>
+      </Link>
     </Box>
   );
 };
