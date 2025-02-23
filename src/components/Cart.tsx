@@ -2,7 +2,6 @@ import { Box, Typography } from "@mui/material";
 import Link from "next/link";
 import Button from "@/components/Button";
 import Image from "next/image";
-import ProductList from "./productList";
 
 interface CartItem {
   id: number;
@@ -90,7 +89,7 @@ const Cart = ({ cartItems = [] }: CartProps) => {
         }}
       >
         <Link
-          href="/checkout"
+          href="/shop/cart"
           style={{ color: "white", textDecoration: "none" }}
         >
           پرداخت

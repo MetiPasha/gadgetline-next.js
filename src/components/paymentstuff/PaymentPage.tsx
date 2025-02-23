@@ -9,6 +9,7 @@ import {
   Radio,
   FormControlLabel,
 } from "@mui/material";
+import Link from "next/link";
 
 const PaymentPage: React.FC = () => {
   return (
@@ -84,14 +85,17 @@ const PaymentPage: React.FC = () => {
           <Typography variant="h5" fontWeight={600} mt={2}>
             مبلغ قابل پرداخت: ۲,۵۶۸,۱۰۰ تومان
           </Typography>
-          <Button
-            fullWidth
-            variant="contained"
-            color="secondary"
-            sx={{ mt: 3, fontSize: "1.2rem", py: 1 }}
-          >
-            پرداخت
-          </Button>
+
+          <Link href="/payment/success" passHref>
+            <Button
+              fullWidth
+              variant="contained"
+              color="secondary"
+              sx={{ mt: 3, fontSize: "1.2rem", py: 1 }}
+            >
+              تکمیل پرداخت
+            </Button>
+          </Link>
         </CardContent>
       </Card>
     </Container>
