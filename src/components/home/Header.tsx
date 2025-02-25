@@ -205,7 +205,7 @@ const Header = () => {
             backgroundColor: theme.palette.background.default, // Styled using theme.
           }}
         >
-          <Cart /> {/* Cart component rendering the cart items. */}
+          <Cart />
         </Box>
       </Drawer>
     </AppBar>
