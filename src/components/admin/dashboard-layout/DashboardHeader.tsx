@@ -9,7 +9,6 @@ import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
-import AccountCircle from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
@@ -18,58 +17,57 @@ import Search from "./components/Search";
 import StyledInputBase from "./components/StyledInputBase";
 import { AppBar } from "./components/HeaderAppBar";
 import { DrawerContext } from "./DrawerProvider";
-import { Divider } from "@mui/material";
+import LogoutIcon from "@mui/icons-material/Logout";
+
 import { logoutAction } from "@/actions/auth/logout";
+import Link from "next/link";
 
 export default function DashboardHeader() {
   const { isOpen, handleOpen } = React.useContext(DrawerContext);
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  // const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
     React.useState<null | HTMLElement>(null);
 
-  const isMenuOpen = Boolean(anchorEl);
+  // const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-  const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
+  // const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+  //   setAnchorEl(event.currentTarget);
+  // };
 
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
   };
 
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-    handleMobileMenuClose();
-  };
+  // const handleMenuClose = () => {
+  //   setAnchorEl(null);
+  //   handleMobileMenuClose();
+  // };
 
   const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
   const menuId = "primary-search-account-menu";
-  const renderMenu = (
-    <Menu
-      keepMounted
-      anchorEl={anchorEl}
-      id={menuId}
-      open={isMenuOpen}
-      anchorOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      transformOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      onClose={handleMenuClose}
-    >
-      <MenuItem onClick={handleMenuClose}>پروفایل</MenuItem>
-      <MenuItem onClick={handleMenuClose}>مشاهده حساب</MenuItem>
-      <Divider />
-      <MenuItem onClick={async () => logoutAction()}>خروج</MenuItem>
-    </Menu>
-  );
+  // const renderMenu = (
+  //   <Menu
+  //     keepMounted
+  //     anchorEl={anchorEl}
+  //     id={menuId}
+  //     open={isMenuOpen}
+  //     anchorOrigin={{
+  //       vertical: "top",
+  //       horizontal: "right",
+  //     }}
+  //     transformOrigin={{
+  //       vertical: "top",
+  //       horizontal: "right",
+  //     }}
+  //     onClose={handleMenuClose}
+  //   >
+  //     <MenuItem onClick={async () => logoutAction()}>خروج</MenuItem>
+  //   </Menu>
+  // );
 
   const mobileMenuId = "primary-search-account-menu-mobile";
   const renderMobileMenu = (
@@ -108,7 +106,7 @@ export default function DashboardHeader() {
         </IconButton>
         <p>Notifications</p>
       </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
+      {/* <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
           aria-controls="primary-search-account-menu"
           aria-haspopup="true"
@@ -119,13 +117,17 @@ export default function DashboardHeader() {
           <AccountCircle />
         </IconButton>
         <p>Profile</p>
-      </MenuItem>
+      </MenuItem> */}
     </Menu>
   );
 
   return (
     <>
-      <AppBar open={isOpen} position="fixed">
+      <AppBar
+        open={isOpen}
+        position="fixed"
+        sx={{ backgroundColor: "secondary.main" }}
+      >
         <Toolbar>
           <IconButton
             aria-label="open drawer"
@@ -143,7 +145,9 @@ export default function DashboardHeader() {
             sx={{ display: { xs: "none", sm: "block" } }}
             variant="h6"
           >
-            گجت لاین
+            <Link href="/" style={{ textDecoration: "none", color: "inherit" }}>
+              گجت لاین
+            </Link>
           </Typography>
           <Search>
             <SearchIconWrapper>
@@ -181,9 +185,9 @@ export default function DashboardHeader() {
               color="inherit"
               edge="end"
               size="large"
-              onClick={handleProfileMenuOpen}
+              // onClick={handleProfileMenuOpen}
             >
-              <AccountCircle />
+              <LogoutIcon onClick={async () => logoutAction()} />
             </IconButton>
           </Box>
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
@@ -201,7 +205,7 @@ export default function DashboardHeader() {
         </Toolbar>
       </AppBar>
       {renderMobileMenu}
-      {renderMenu}
+      {/* {renderMenu} */}
     </>
   );
 }

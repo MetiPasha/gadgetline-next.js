@@ -1,5 +1,5 @@
 "use client";
-import { useShopProductsQuery } from "@/components/GetAllProducts";
+import { useShopProductsQuery } from "@/components/ByBrands";
 import { Box, Typography } from "@mui/material";
 import Link from "next/link";
 

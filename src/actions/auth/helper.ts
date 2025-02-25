@@ -5,7 +5,7 @@ export function chooseAuthRedirectPath(role: IUser["role"] | undefined) {
     case 1:
       return "/";
     case 2:
-      return "/sellerp";
+      return "/seller";
     case 3:
       return "/admin/dashboard";
     default:

@@ -16,7 +16,6 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { AccountCircle, ShoppingCart } from "@mui/icons-material";
-import Cart from "@/components/Cart";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
@@ -204,9 +203,7 @@ const Header = () => {
             padding: "2rem", // Adds padding inside the drawer.
             backgroundColor: theme.palette.background.default, // Styled using theme.
           }}
-        >
-          <Cart /> {/* Cart component rendering the cart items. */}
-        </Box>
+        ></Box>
       </Drawer>
     </AppBar>
   );

@@ -53,7 +53,12 @@ function ByBrands() {
                 image={product.images.main || "/default-image.jpg"}
                 title={product.titleFa}
                 // price={"32,199,000"}
-                price={`${product.bestSeller?.price ?? 0}`}
+                price={`${product.bestSeller?.lastPrice ?? 0}`}
+                color={
+                  product.colors.length > 0
+                    ? product.colors[0].hexCode
+                    : "Default Color"
+                }
                 storage={"1 ترابایت"}
                 ram={"32GB"}
               />

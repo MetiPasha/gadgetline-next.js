@@ -10,16 +10,23 @@ import {
   ListItemIcon,
   ListItemText,
   Box,
+  TextField,
+  InputAdornment,
 } from "@mui/material";
 import {
   Menu as MenuIcon,
-  Close as CloseIcon,
   Category as CategoryIcon,
   ShoppingBasket as ShoppingBasketIcon,
   Smartphone as SmartphoneIcon,
   Money,
 } from "@mui/icons-material";
+import LogoutIcon from "@mui/icons-material/Logout";
+import SearchIcon from "@mui/icons-material/Search";
 import { useDrawer } from "./seller-drawer-provider";
+import { logoutAction } from "@/actions/auth/logout";
+import Link from "next/link";
+
+const drawerWidth = 240; // عرض منو کشویی
 
 const menuItems = [
   {
@@ -35,23 +42,67 @@ const menuItems = [
     href: "/seller/category",
   },
 ];
+
 const SellerNavbar = () => {
   const { isDrawerOpen, toggleDrawer } = useDrawer();
 
   return (
-    <>
+    <Box sx={{ display: "flex" }}>
       {/* Navbar */}
       <AppBar
         position="static"
-        sx={{ backgroundColor: "primary.main", color: "#fff" }}
+        sx={{
+          backgroundColor: "secondary.main", // تغییر رنگ به secondary.main
+          color: "secondary.contrastText", // تغییر رنگ متن بر اساس تم
+          transition: "margin-left 0.3s ease",
+          marginLeft: isDrawerOpen ? `${drawerWidth}px` : "0",
+          width: isDrawerOpen ? `calc(100% - ${drawerWidth}px)` : "100%",
+        }}
       >
         <Toolbar>
           <IconButton edge="start" color="inherit" onClick={toggleDrawer}>
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" sx={{ flexGrow: 1 }}>
-            داشبورد فروشنده
-          </Typography>
+          {/* Box حاوی عنوان و فیلد جستجو */}
+          <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+            <Typography variant="h6">
+              {" "}
+              <Link
+                href="/"
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                گجت لاین
+              </Link>
+            </Typography>
+            <TextField
+              variant="outlined"
+              size="small"
+              placeholder="Search..."
+              sx={{
+                backgroundColor: "#fff",
+                borderRadius: 1,
+                width: "200px",
+              }}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchIcon />
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </Box>
+          <Box sx={{ flexGrow: 1 }} />
+          {/* دکمه خروج در گوشه سمت راست */}
+          <IconButton
+            aria-label="خروج"
+            color="inherit"
+            edge="end"
+            size="large"
+            onClick={async () => await logoutAction()}
+          >
+            <LogoutIcon />
+          </IconButton>
         </Toolbar>
       </AppBar>
 
@@ -61,8 +112,10 @@ const SellerNavbar = () => {
         anchor="left"
         open={isDrawerOpen}
         sx={{
+          width: drawerWidth,
+          flexShrink: 0,
           "& .MuiDrawer-paper": {
-            width: 240,
+            width: drawerWidth,
             backgroundColor: "#f5f5f5",
             boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
             right: 0,
@@ -75,24 +128,22 @@ const SellerNavbar = () => {
             justifyContent: "space-between",
             alignItems: "center",
             padding: "12px",
-            backgroundColor: "primary.main",
+            backgroundColor: "secondary.main",
             color: "#fff",
           }}
         >
           <Typography variant="h6">منوی فروشنده</Typography>
-          <IconButton onClick={toggleDrawer} sx={{ color: "#fff" }}>
-            <CloseIcon />
-          </IconButton>
+          <Box onClick={toggleDrawer} sx={{ color: "#fff", pb: 5 }}></Box>
         </Box>
 
         {/* User details */}
-        <div
-          style={{
+        <Box
+          sx={{
             textAlign: "center",
             padding: "16px",
             backgroundColor: "#f0f0f0",
           }}
-        ></div>
+        ></Box>
 
         {/* List */}
         <List>
@@ -113,7 +164,7 @@ const SellerNavbar = () => {
           ))}
         </List>
       </Drawer>
-    </>
+    </Box>
   );
 };
 

@@ -12,6 +12,7 @@ interface ProductCardProps {
   image: string;
   title: string;
   price: string;
+  color: string;
   storage: string;
   ram: string;
 }
@@ -28,6 +29,7 @@ const LaptopCard: React.FC<ProductCardProps> = ({
   image,
   title,
   price,
+  color,
   storage,
   ram,
 }) => {
@@ -62,6 +64,17 @@ const LaptopCard: React.FC<ProductCardProps> = ({
         <Typography variant="body2" color="text.secondary">
           {storage} | {ram}
         </Typography>
+        <Box display="flex" alignItems="center" gap={1} mt={1}>
+          <Box
+            sx={{
+              width: 20,
+              height: 20,
+              borderRadius: "50%",
+              backgroundColor: color,
+              border: "1px solid #000",
+            }}
+          />
+        </Box>
         <Typography
           variant="h6"
           color="primary"

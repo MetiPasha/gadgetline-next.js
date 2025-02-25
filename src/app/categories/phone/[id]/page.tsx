@@ -1,6 +1,6 @@
 "use client";
 import FilterSidebar from "@/components/categories/FilterSidebar";
-import ByBrands from "@/components/GetAllProducts";
+import ByBrands from "@/components/ByBrands";
 import Header from "@/components/home/Header";
 
 import { Box } from "@mui/material";
