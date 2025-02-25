@@ -52,9 +52,10 @@ function ByBrands() {
               <LaptopCard
                 image={product.images.main || "/default-image.jpg"}
                 title={product.titleFa}
-                price={"32,199,000"}
-                storage={"نامشخص"}
-                ram={"نامشخص"}
+                // price={"32,199,000"}
+                price={`${product.bestSeller?.price ?? 0}`}
+                storage={"1 ترابایت"}
+                ram={"32GB"}
               />
             </Grid>
           ))}

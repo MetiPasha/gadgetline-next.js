@@ -84,6 +84,7 @@ export interface SellerInfo {
   count: number;
   id: string;
   seller: ISeller;
+  price: number;
 }
 export interface IProduct extends Timestamp {
   images: {

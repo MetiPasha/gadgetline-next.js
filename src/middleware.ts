@@ -6,7 +6,7 @@ import { auth } from "./lib/session";
 // 1. Specify protected and public routes
 const protectedRoutes = [
   "/admin/dashboard",
-  "/sellerp",
+  "/seller",
   "/profile",
   "/checkout",
 ];
@@ -37,7 +37,7 @@ export default async function middleware(req: NextRequest) {
     if (role === "3") {
       return NextResponse.redirect(new URL("/admin/dashboard", req.nextUrl));
     } else if (role === "2") {
-      return NextResponse.redirect(new URL("/sellerp", req.nextUrl));
+      return NextResponse.redirect(new URL("/seller", req.nextUrl));
     }
     return NextResponse.redirect(new URL("/", req.nextUrl));
   }

@@ -1,4 +1,5 @@
 import { auth } from "@/lib/session";
+import { error } from "console";
 
 export class ApiError extends Error {
   constructor(
@@ -20,13 +21,13 @@ export const apiFetch = async <T>(
     ...(accessToken && { Authorization: `Bearer ${accessToken}` }),
     ...options?.headers,
   };
-
   const res = await fetch(url, {
     ...options,
     headers,
   });
   if (!res.ok) {
     const errorBody = await res.json().catch(() => null);
+    console.log("injaaa", res.statusText);
     throw new ApiError(res.status, res.statusText, errorBody);
   }
   return res.json();
