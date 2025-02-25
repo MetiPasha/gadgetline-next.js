@@ -75,7 +75,7 @@ const Cart = ({ cartItems = [] }: CartProps) => {
 
       <Box sx={{ display: "flex", justifyContent: "space-between" }}>
         <Typography>جمع کل</Typography>
-        <Typography>${total}</Typography>
+        <Typography>{total}تومان</Typography>
       </Box>
 
       <Button
