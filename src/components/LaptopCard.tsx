@@ -71,7 +71,6 @@ const LaptopCard: React.FC<ProductCardProps> = ({
               height: 20,
               borderRadius: "50%",
               backgroundColor: color,
-              border: "1px solid #000",
             }}
           />
         </Box>
