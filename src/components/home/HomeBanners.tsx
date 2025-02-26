@@ -10,7 +10,7 @@ const HomeBanners = () => {
               component="img"
               height="250"
               image="/assets/home/banner11.jpg"
-              alt="بنر تخفیف لوازم آرایشی"
+              alt="+"
             />
           </Card>
         </Grid>
@@ -21,7 +21,7 @@ const HomeBanners = () => {
               component="img"
               height="250"
               image="/assets/home/banner2.jpg"
-              alt="بنر تخفیف کرم ضد آفتاب"
+              alt="+"
             />
           </Card>
         </Grid>

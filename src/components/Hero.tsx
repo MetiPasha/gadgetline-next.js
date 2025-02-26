@@ -1,5 +1,6 @@
 "use client";
 import { Box, Typography, Button, useTheme } from "@mui/material";
+import Link from "next/link";
 import React, { useState } from "react";
 
 // Sample images array - replace with actual image paths
@@ -87,20 +88,24 @@ const Hero: React.FC = () => {
             width: "100%", // Full width of the container
           }}
         >
-          <Button
-            variant="contained"
-            sx={{
-              padding: "0.5rem 2rem", // Padding inside the button
-              marginLeft: "1rem", // Left margin for the button
-              backgroundColor: theme.palette.primary.main, // Button background color
-              color: theme.palette.getContrastText(theme.palette.primary.main), // Text color for contrast
-              "&:hover": {
-                backgroundColor: theme.palette.primary.dark, // Hover effect
-              },
-            }}
-          >
-            محصولات
-          </Button>
+          <Link href="/categories/all">
+            <Button
+              variant="contained"
+              sx={{
+                padding: "0.5rem 2rem", // Padding inside the button
+                marginLeft: "1rem", // Left margin for the button
+                backgroundColor: theme.palette.primary.main, // Button background color
+                color: theme.palette.getContrastText(
+                  theme.palette.primary.main
+                ), // Text color for contrast
+                "&:hover": {
+                  backgroundColor: theme.palette.primary.dark, // Hover effect
+                },
+              }}
+            >
+              محصولات
+            </Button>
+          </Link>
         </Box>
       </Box>
 

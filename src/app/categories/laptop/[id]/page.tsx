@@ -9,7 +9,7 @@ import { useParams } from "next/navigation";
 const LaptopBrandPage = () => {
   const param = useParams() as { id: string };
 
-  console.log("Brand ID:", param.id); // ✅ چک کردن مقدار `id`
+  console.log("Brand ID:", param.id);
 
   return (
     <Box>
@@ -31,6 +31,5 @@ export default LaptopBrandPage;
 // return (
 //   // <Box>
 //   //   <Typography variant="h4">برند: {id}</Typography>
-//   //   {/* اینجا می‌تونی کامپوننت نمایش محصولات رو اضافه کنی */}
 //   // </Box>
 // );

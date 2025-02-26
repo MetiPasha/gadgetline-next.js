@@ -1,4 +1,4 @@
-"use client"; // This indicates the component is a client-side React component.
+"use client";
 
 import React, { useState } from "react";
 import {
@@ -21,84 +21,76 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 const Header = () => {
-  const theme = useTheme(); // Get the current theme for styling.
-  const router = useRouter(); // Next.js router for navigation.
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null); // State for handling menu anchor.
-  const [searchQuery, setSearchQuery] = useState(""); // State for the search input value.
-  const [cartItems, setCartItems] = useState(1); // State for the number of items in the cart.
-  const [cartOpen, setCartOpen] = useState(false); // State to control the visibility of the cart drawer.
+  const theme = useTheme();
+  const router = useRouter();
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [cartItems, setCartItems] = useState(1);
+  const [cartOpen, setCartOpen] = useState(false);
 
-  // Handles the opening of the menu.
   const handleMenuClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
-  // Handles the closing of the menu.
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
 
-  // Updates the search query state on input change.
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value);
   };
 
-  // Toggles the cart drawer open/close state.
+  // ارسال کاربر به صفحه جستجو هنگام فشردن Enter
+  const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (searchQuery.trim()) {
+      router.push(`/search?query=${encodeURIComponent(searchQuery)}`);
+    }
+  };
+
   const toggleCart = () => {
     setCartOpen(!cartOpen);
   };
 
-  // Navigates to the login page.
   const handleLoginClick = () => {
     router.push("/auth/login");
   };
 
   return (
     <AppBar
-      position="sticky" // Keeps the header sticky at the top of the page.
-      sx={{
-        backgroundColor: theme.palette.primary.dark, // Background color based on theme.
-      }}
+      position="sticky"
+      sx={{ backgroundColor: theme.palette.primary.dark }}
     >
       <Toolbar
         sx={{
           display: "flex",
-          justifyContent: "space-between", // Space between logo/search and user options.
+          justifyContent: "space-between",
           alignItems: "center",
         }}
       >
-        {/* Left Section: Logo, Menu, and Search */}
         <Box sx={{ display: "flex", alignItems: "center" }}>
-          {/* Logo */}
           <Typography
             variant="h4"
-            sx={{
-              marginRight: "5rem",
-              color: theme.palette.secondary.light, // Styled using theme.
-            }}
+            sx={{ marginRight: "5rem", color: theme.palette.secondary.light }}
           >
             <Link href="/" style={{ textDecoration: "none", color: "inherit" }}>
               گجت لاین
             </Link>
           </Typography>
 
-          {/* Category Menu Button */}
           <IconButton
-            sx={{
-              ":hover": { color: theme.palette.secondary.light }, // Hover effect.
-            }}
+            sx={{ ":hover": { color: theme.palette.secondary.light } }}
             color="inherit"
-            onClick={handleMenuClick} // Opens the category menu.
+            onClick={handleMenuClick}
           >
             <MenuIcon />
             دسته‌بندی
           </IconButton>
 
-          {/* Category Dropdown Menu */}
           <Menu
-            anchorEl={anchorEl} // Position of the menu.
-            open={Boolean(anchorEl)} // Menu visibility.
-            onClose={handleMenuClose} // Closes the menu.
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClose={handleMenuClose}
           >
             <Link href="/categories/laptop" passHref legacyBehavior>
               <MenuItem onClick={handleMenuClose} component="a">
@@ -113,43 +105,45 @@ const Header = () => {
             <MenuItem onClick={handleMenuClose}>هدفون</MenuItem>
           </Menu>
 
-          {/* Search Bar */}
-          <TextField
-            variant="outlined"
-            size="small"
-            value={searchQuery} // Controlled input value.
-            onChange={handleSearchChange} // Updates the search query.
-            placeholder="جستجو در گجت لاین..." // Placeholder text.
-            sx={{
-              background: theme.palette.background.default, // Background styling.
-              marginLeft: 2,
-              flexGrow: 1, // Makes the search bar grow to fill space.
-              maxWidth: "31.25rem", // Limits the width.
-            }}
-          />
+          {/* فرم جستجو */}
+          <form
+            onSubmit={handleSearchSubmit}
+            style={{ display: "flex", flexGrow: 1 }}
+          >
+            <TextField
+              variant="outlined"
+              size="small"
+              value={searchQuery}
+              onChange={handleSearchChange}
+              placeholder="جستجو در گجت لاین..."
+              sx={{
+                background: theme.palette.background.default,
+                marginLeft: 2,
+                flexGrow: 1,
+                maxWidth: "31.25rem",
+              }}
+            />
+          </form>
         </Box>
 
-        {/* Brand Slogan */}
         <Typography
           variant="h6"
           sx={{
             color: theme.palette.secondary.main,
             marginLeft: 4,
             fontWeight: "bold",
-            fontSize: "2rem", // Large font for visibility.
+            fontSize: "2rem",
           }}
         >
           کیفیت برتر، قیمت بهتر
         </Typography>
 
-        {/* Right Section: Login and Cart */}
         <Box sx={{ display: "flex", alignItems: "center" }}>
-          {/* Login Button */}
           <Box
             sx={{
               display: "flex",
               flexDirection: "column",
-              alignItems: "center", // Centers icon and text vertically.
+              alignItems: "center",
               marginLeft: 2,
             }}
           >
@@ -164,7 +158,6 @@ const Header = () => {
             </Typography>
           </Box>
 
-          {/* Cart Button */}
           <Box
             sx={{
               display: "flex",
@@ -188,21 +181,18 @@ const Header = () => {
         </Box>
       </Toolbar>
 
-      {/* Cart Drawer */}
       <Drawer
-        anchor="right" // Opens the drawer from the right side.
-        open={cartOpen} // Controlled visibility.
-        onClose={toggleCart} // Closes the drawer.
-        sx={{
-          zIndex: 1300, // Ensures the drawer is above other components.
-        }}
+        anchor="right"
+        open={cartOpen}
+        onClose={toggleCart}
+        sx={{ zIndex: 1300 }}
       >
         <Box
           sx={{
-            width: "350px", // Fixed width for the cart drawer.
-            height: "100%", // Full height.
-            padding: "2rem", // Adds padding inside the drawer.
-            backgroundColor: theme.palette.background.default, // Styled using theme.
+            width: "350px",
+            height: "100%",
+            padding: "2rem",
+            backgroundColor: theme.palette.background.default,
           }}
         >
           <Cart />

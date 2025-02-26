@@ -29,7 +29,7 @@ const MobileList = () => {
       price: "19,990,000",
     },
     {
-      image: "assets/home/mobile/galaxyA55.webp",
+      image: "assets/home/mobile/galaxyA55.jpg",
       title:
         "گوشی موبایل سامسونگ مدل Galaxy A55 دو سیم کارت ظرفیت 128 گیگابایت و رم 8 گیگابایت",
       storage: "128GB حافظه",

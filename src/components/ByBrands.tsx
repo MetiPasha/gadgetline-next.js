@@ -40,9 +40,9 @@ function ByBrands() {
         display: "flex",
         flexWrap: "wrap",
         gap: 2,
-        ml: 36,
+        ml: 30,
         justifyContent: "center",
-        mt: 3,
+        mt: 5,
       }}
     >
       {filteredProducts.length > 0 ? (
@@ -50,15 +50,19 @@ function ByBrands() {
           {filteredProducts.map((product) => (
             <Grid item key={product.id}>
               <LaptopCard
+                id={product.id}
                 image={product.images.main || "/default-image.jpg"}
                 title={product.titleFa}
-                // price={"32,199,000"}
-                price={`${product.bestSeller?.lastPrice ?? 0}`}
-                color={
-                  product.colors.length > 0
-                    ? product.colors[0].hexCode
-                    : "Default Color"
+                price={Number(
+                  product.bestSeller?.lastPrice ?? 0
+                ).toLocaleString("fa-IR")}
+                review={
+                  product.review && product.review.trim() !== ""
+                    ? product.review
+                    : "موجودی بالا"
                 }
+                status={product.status}
+                colors={product.colors}
                 storage={"1 ترابایت"}
                 ram={"32GB"}
               />
