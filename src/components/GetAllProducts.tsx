@@ -45,7 +45,9 @@ function GetAllProducts() {
                 <LaptopCard
                   image={product.images.main || "/default-image.jpg"}
                   title={product.titleFa}
-                  price={"32,199,000"}
+                  price={Number(
+                    product.bestSeller?.lastPrice ?? 0
+                  ).toLocaleString("fa-IR")}
                   storage={"نامشخص"}
                   ram={"نامشخص"}
                 />

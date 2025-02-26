@@ -5,7 +5,7 @@ import MobileCard from "../MobileCard";
 const MobileList = () => {
   const products = [
     {
-      image: "assets/home/mobile/galaxyA15.webp",
+      image: "assets/home/mobile/galaxyA15.jpg",
       title:
         "گوشی موبایل سامسونگ مدل Galaxy A15 دو سیم کارت ظرفیت 128 گیگابایت و رم 6 گیگابایت",
       storage: "128GB حافظه",
@@ -13,7 +13,7 @@ const MobileList = () => {
       price: "12,400,000",
     },
     {
-      image: "assets/home/mobile/galaxyA05s.webp",
+      image: "assets/home/mobile/galaxyA05s.jpg",
       title:
         "گوشی موبایل سامسونگ مدل Galaxy A05s دو سیم کارت ظرفیت 128 گیگابایت و رم 6 گیگابایت",
       storage: "128GB حافظه",
@@ -21,7 +21,7 @@ const MobileList = () => {
       price: "10,190,000",
     },
     {
-      image: "assets/home/mobile/galaxyA35.webp",
+      image: "assets/home/mobile/galaxyA35.jpg",
       title:
         "گوشی موبایل سامسونگ مدل Galaxy A35 دو سیم کارت ظرفیت 128 گیگابایت رم 8 گیگابایت",
       storage: "128GB حافظه",

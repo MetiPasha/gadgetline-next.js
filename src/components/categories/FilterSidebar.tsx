@@ -9,16 +9,47 @@ import {
   Divider,
 } from "@mui/material";
 
-const FilterSidebar: React.FC = () => {
+interface PriceFilters {
+  under200: boolean;
+  between200And400: boolean;
+  above400: boolean;
+}
+
+interface FilterSidebarProps {
+  // در صورت نیاز می‌توانید وضعیت فیلتر قیمت را به کامپوننت والد ارسال کنید
+  onPriceFilterChange?: (priceFilters: PriceFilters) => void;
+}
+
+const FilterSidebar: React.FC<FilterSidebarProps> = ({
+  onPriceFilterChange,
+}) => {
   // وضعیت برای فیلتر کالاهای موجود
   const [showAvailable, setShowAvailable] = useState(false);
 
-  // تابع برای تغییر وضعیت تیک فیلتر
+  // وضعیت برای فیلتر محدوده قیمت
+  const [priceFilters, setPriceFilters] = useState<PriceFilters>({
+    under200: false,
+    between200And400: false,
+    above400: false,
+  });
+
+  // تابع برای تغییر وضعیت تیک فیلتر کالاهای موجود
   const handleAvailableChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     setShowAvailable(event.target.checked);
   };
+
+  // تابع برای تغییر وضعیت تیک فیلتر محدوده قیمت
+  const handlePriceChange =
+    (field: keyof PriceFilters) =>
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const newFilters = { ...priceFilters, [field]: event.target.checked };
+      setPriceFilters(newFilters);
+      if (onPriceFilterChange) {
+        onPriceFilterChange(newFilters);
+      }
+    };
 
   return (
     <Box
@@ -26,12 +57,12 @@ const FilterSidebar: React.FC = () => {
         width: 300, // عرض فیلترها
         position: "fixed", // موقعیت ثابت
         top: 0, // در بالای صفحه قرار گیرد
-        left: 0, // سمت راست صفحه
+        left: 0, // سمت چپ صفحه (در اینجا همانطور که مدنظر بوده)
         padding: 2, // فاصله داخلی
         height: "100vh", // ارتفاع برابر با صفحه
-        overflowY: "auto", // برای اینکه در صورت زیاد بودن فیلترها اسکرول بشه
-        backgroundColor: "white", // پس‌زمینه سفید برای فیلترها
-        boxShadow: 2, // سایه برای بخش فیلترها
+        overflowY: "auto", // در صورت زیاد بودن فیلترها اسکرول می‌شود
+        backgroundColor: "white", // پس‌زمینه سفید
+        boxShadow: 2, // سایه برای فیلترها
       }}
     >
       <Typography variant="h6" gutterBottom>
@@ -64,9 +95,33 @@ const FilterSidebar: React.FC = () => {
         <Typography variant="subtitle1" gutterBottom>
           محدوده قیمت
         </Typography>
-        <FormControlLabel control={<Checkbox />} label="زیر ۲۰ میلیون" />
-        <FormControlLabel control={<Checkbox />} label="۲۰ تا ۳۰ میلیون" />
-        <FormControlLabel control={<Checkbox />} label="بیشتر از ۳۰ میلیون" />
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={priceFilters.under200}
+              onChange={handlePriceChange("under200")}
+            />
+          }
+          label="زیر ۲۰۰ میلیون"
+        />
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={priceFilters.between200And400}
+              onChange={handlePriceChange("between200And400")}
+            />
+          }
+          label="۲۰۰ تا ۴۰۰ میلیون"
+        />
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={priceFilters.above400}
+              onChange={handlePriceChange("above400")}
+            />
+          }
+          label="بیشتر از ۴۰۰ میلیون"
+        />
       </Box>
 
       <Divider sx={{ my: 2 }} />
@@ -87,7 +142,7 @@ const FilterSidebar: React.FC = () => {
         />
       </Box>
 
-      {/* نمایش محتوا بر اساس فیلتر کالاهای موجود */}
+      {/* نمایش توضیح در صورت انتخاب فیلتر کالاهای موجود */}
       {showAvailable && (
         <Box>
           <Typography variant="body2" color="text.secondary">
