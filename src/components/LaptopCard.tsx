@@ -18,6 +18,7 @@ const bounceAnimation = keyframes`
 `;
 
 const LaptopCard: React.FC<any> = ({
+  code,
   image,
   title,
   price,
@@ -27,15 +28,15 @@ const LaptopCard: React.FC<any> = ({
   storage,
   ram,
 }) => {
+  console.log("LaptopCard Props:", { code, image, title, price });
   const router = useRouter();
-
-  const handleClick = () => {
-    router.push(`/product/`);
-  };
 
   return (
     <Card
-      onClick={handleClick}
+      onClick={() => {
+        console.log("Product Code:", code);
+        if (code) router.push(`/product/${code}`);
+      }}
       sx={{
         maxWidth: 300,
         boxShadow: 3,
@@ -52,7 +53,7 @@ const LaptopCard: React.FC<any> = ({
       <CardMedia
         component="img"
         height="200"
-        image={image}
+        image={image && image !== "" ? image : null}
         alt={title}
         sx={{
           objectFit: "contain",
@@ -64,12 +65,10 @@ const LaptopCard: React.FC<any> = ({
           {title}
         </Typography>
 
-        {/* استایل بهبودیافته برای review */}
         <Typography
           variant="body2"
           sx={{
             fontSize: "0.85rem",
-            fontFamily: "'Vazirmatn', sans-serif",
             color: review === "موجودی بالا" ? "gray" : "red",
             marginTop: 1,
           }}
@@ -77,7 +76,6 @@ const LaptopCard: React.FC<any> = ({
           {review}
         </Typography>
 
-        {/* استایل بهبودیافته برای status */}
         <Typography
           variant="body2"
           sx={{
@@ -94,7 +92,6 @@ const LaptopCard: React.FC<any> = ({
           {storage} | {ram}
         </Typography>
 
-        {/* نمایش تمام رنگ‌های موجود */}
         <Box display="flex" alignItems="center" gap={1} mt={1}>
           {colors.length > 0 ? (
             colors.map((c, index) => (
@@ -116,7 +113,6 @@ const LaptopCard: React.FC<any> = ({
           )}
         </Box>
 
-        {/* قیمت و تومان به صورت چسبیده */}
         <Typography
           variant="h6"
           color="primary"

@@ -22,7 +22,7 @@ export function useShopProductsQuery() {
 }
 
 function ByBrands() {
-  const { id } = useParams(); // استخراج شناسه برند از مسیر
+  const { id } = useParams();
   const { data, isLoading, isError } = useShopProductsQuery();
 
   if (isLoading) return <div>Loading...</div>;
@@ -51,6 +51,7 @@ function ByBrands() {
             <Grid item key={product.id}>
               <LaptopCard
                 id={product.id}
+                code={product.code}
                 image={product.images.main || "/default-image.jpg"}
                 title={product.titleFa}
                 price={Number(
