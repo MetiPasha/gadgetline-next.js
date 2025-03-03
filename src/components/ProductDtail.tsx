@@ -23,7 +23,7 @@ interface ProductDetailProps {
   code: string;
 }
 
-const ProductDetailll: React.FC<ProductDetailProps> = ({ code }) => {
+const ProductDetail: React.FC<ProductDetailProps> = ({ code }) => {
   const {
     data: product,
     isLoading,
@@ -66,6 +66,8 @@ const ProductDetailll: React.FC<ProductDetailProps> = ({ code }) => {
       setNewComment("");
     }
   };
+  console.log("Badge Title:", product.badges?.title);
+  console.log("Product Specifications:", product.specifications);
 
   return (
     <Box sx={{ p: 4 }}>
@@ -132,8 +134,44 @@ const ProductDetailll: React.FC<ProductDetailProps> = ({ code }) => {
               {product.titleFa}
             </Typography>
             <Typography variant="subtitle1" color="text.secondary" gutterBottom>
-              امتیاز ⭐ N/A
+              {product.titleEn}
             </Typography>
+
+            <Box sx={{ display: "flex", alignItems: "center", gap: 2, mt: 1 }}>
+              <Typography variant="subtitle1" color="text.secondary">
+                ⭐ 4/4
+              </Typography>
+              <Divider orientation="vertical" flexItem />
+
+              <Box
+                sx={{
+                  backgroundColor: "#f0f0f0",
+                  borderRadius: "16px",
+                  px: 2,
+                  py: 0.5,
+                }}
+              >
+                <Typography variant="subtitle2" color="text.primary">
+                  ۵۰ دیدگاه
+                </Typography>
+              </Box>
+
+              <Divider orientation="vertical" flexItem />
+
+              <Box
+                sx={{
+                  backgroundColor: "#f0f0f0",
+                  borderRadius: "16px",
+                  px: 2,
+                  py: 0.5,
+                }}
+              >
+                <Typography variant="subtitle2" color="text.primary">
+                  ۳۵ پرسش
+                </Typography>
+              </Box>
+            </Box>
+
             <Box sx={{ my: 2 }}>
               <Typography variant="h5" color="primary">
                 {Number(product.bestSeller?.lastPrice ?? 0).toLocaleString(
@@ -157,6 +195,8 @@ const ProductDetailll: React.FC<ProductDetailProps> = ({ code }) => {
               <Typography variant="h6" gutterBottom>
                 ویژگی‌ها:
               </Typography>
+
+              {/* نمایش لیست ویژگی‌ها */}
               <Box component="ul" sx={{ pl: 4 }}>
                 {product.specifications && product.specifications.length > 0 ? (
                   product.specifications.map((spec, index) => (
@@ -285,4 +325,4 @@ const ProductDetailll: React.FC<ProductDetailProps> = ({ code }) => {
   );
 };
 
-export default ProductDetailll;
+export default ProductDetail;

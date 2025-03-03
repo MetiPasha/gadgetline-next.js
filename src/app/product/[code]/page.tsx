@@ -16,7 +16,7 @@
 
 "use client";
 import Header from "@/components/home/Header";
-import ProductDetailll from "@/components/ProductDtailll";
+import ProductDetailll from "@/components/ProductDtail";
 import { Box } from "@mui/material";
 import { useParams } from "next/navigation";
 

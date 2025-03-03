@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import { LocalOffer, ShoppingCart, Favorite } from "@mui/icons-material";
 
-const ProductDetail: React.FC = () => {
+const ProDetail: React.FC = () => {
   const [mainImage, setMainImage] = useState("/assets/product/black3.jpg");
   const [selectedColor, setSelectedColor] = useState("black");
   const [comments, setComments] = useState<string[]>([]);
@@ -244,4 +244,4 @@ const ProductDetail: React.FC = () => {
   );
 };
 
-export default ProductDetail;
+export default ProDetail;
