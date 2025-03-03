@@ -9,11 +9,17 @@ import {
   Chip,
   TextField,
 } from "@mui/material";
-import { LocalOffer, ShoppingCart, Favorite } from "@mui/icons-material";
+import {
+  LocalOffer,
+  ShoppingCart,
+  Favorite,
+  Star,
+  StarBorder,
+} from "@mui/icons-material";
 import { useQuery } from "@tanstack/react-query";
 import Axios from "@/api/client-api/base";
 import { IShopProducts } from "@/api/server-api/types";
-import { useFavorites } from "@/context/FavoriteContext"; // وارد کردن useFavorites
+import { useFavorites } from "@/context/FavoriteContext";
 
 async function getProductByCode(code: string): Promise<IShopProducts> {
   const res = await Axios.get(`/products/${code}`);
@@ -45,7 +51,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ code }) => {
     if (product && product.images.main) {
       setMainImage(product.images.main);
     } else {
-      setMainImage("/default-image.jpg"); // تصویر پیش‌فرض
+      setMainImage("/default-image.jpg");
     }
   }, [product]);
 
@@ -53,7 +59,6 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ code }) => {
   if (isError || !product)
     return <div>Error: Failed to load product details</div>;
 
-  // استفاده از product.images.list برای تصاویر ثانویه، در غیر این صورت از تصویر اصلی استفاده می‌شود.
   const thumbnails =
     product.images.list && product.images.list.length > 0
       ? product.images.list
@@ -78,7 +83,15 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ code }) => {
 
   return (
     <Box sx={{ p: 4 }}>
-      <Paper elevation={3} sx={{ p: 4 }}>
+      <Paper
+        elevation={4}
+        sx={{
+          p: 4,
+          borderRadius: 3,
+          background: "linear-gradient(135deg, #ffffff, #f2f2f2)",
+          boxShadow: "0px 4px 20px rgba(0,0,0,0.1)",
+        }}
+      >
         <Box
           sx={{
             display: "flex",
@@ -86,6 +99,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ code }) => {
             gap: 4,
           }}
         >
+          {/* بخش تصاویر محصول */}
           <Box sx={{ flex: 1 }}>
             {mainImage ? (
               <Box
@@ -94,8 +108,11 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ code }) => {
                 alt={product.titleFa}
                 sx={{
                   width: "100%",
+                  maxHeight: "300px", // ارتفاع محدود شده
+                  objectFit: "contain", // حفظ نسبت ابعاد
                   borderRadius: 2,
-                  marginBottom: "1rem",
+                  marginBottom: 2,
+                  boxShadow: "0px 4px 10px rgba(0,0,0,0.1)",
                 }}
               />
             ) : (
@@ -103,12 +120,12 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ code }) => {
                 تصویر موجود نیست.
               </Typography>
             )}
-
             <Box
               sx={{
                 display: "flex",
-                gap: 2,
+                gap: 1,
                 justifyContent: "center",
+                mt: 1,
               }}
             >
               {thumbnails.map((thumbnail, index) =>
@@ -128,7 +145,8 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ code }) => {
                         mainImage === thumbnail
                           ? "2px solid #1976d2"
                           : "2px solid transparent",
-                      transition: "border 0.3s ease",
+                      transition: "border 0.3s ease, transform 0.3s ease",
+                      "&:hover": { transform: "scale(1.1)" },
                     }}
                   />
                 ) : null
@@ -136,6 +154,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ code }) => {
             </Box>
           </Box>
 
+          {/* بخش جزئیات محصول */}
           <Box sx={{ flex: 1 }}>
             <Typography variant="h4" gutterBottom>
               {product.titleFa}
@@ -144,12 +163,19 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ code }) => {
               {product.titleEn}
             </Typography>
 
+            {/* امتیاز و نظرات */}
             <Box sx={{ display: "flex", alignItems: "center", gap: 2, mt: 1 }}>
+              <Box sx={{ display: "flex", alignItems: "center" }}>
+                <Star sx={{ color: "#FFD700" }} />
+                <Star sx={{ color: "#FFD700" }} />
+                <Star sx={{ color: "#FFD700" }} />
+                <Star sx={{ color: "#FFD700" }} />
+                <StarBorder sx={{ color: "#FFD700" }} />
+              </Box>
               <Typography variant="subtitle1" color="text.secondary">
-                ⭐ 4/4
+                4/5
               </Typography>
               <Divider orientation="vertical" flexItem />
-
               <Box
                 sx={{
                   backgroundColor: "#f0f0f0",
@@ -162,9 +188,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ code }) => {
                   ۵۰ دیدگاه
                 </Typography>
               </Box>
-
               <Divider orientation="vertical" flexItem />
-
               <Box
                 sx={{
                   backgroundColor: "#f0f0f0",
@@ -179,6 +203,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ code }) => {
               </Box>
             </Box>
 
+            {/* قیمت و تخفیف */}
             <Box sx={{ my: 2 }}>
               <Typography variant="h5" color="primary">
                 {Number(product.bestSeller?.lastPrice ?? 0).toLocaleString(
@@ -198,12 +223,11 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ code }) => {
 
             <Divider sx={{ my: 2 }} />
 
+            {/* ویژگی‌های محصول */}
             <Box sx={{ my: 2 }}>
               <Typography variant="h6" gutterBottom>
                 ویژگی‌ها:
               </Typography>
-
-              {/* نمایش لیست ویژگی‌ها */}
               <Box component="ul" sx={{ pl: 4 }}>
                 {product.specifications && product.specifications.length > 0 ? (
                   product.specifications.map((spec, index) => (
@@ -219,6 +243,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ code }) => {
               </Box>
             </Box>
 
+            {/* رنگ‌بندی محصول */}
             <Box sx={{ my: 2 }}>
               <Typography variant="h6" gutterBottom>
                 رنگ‌بندی محصول:
@@ -251,6 +276,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ code }) => {
 
             <Divider sx={{ my: 2 }} />
 
+            {/* دکمه‌های خرید و علاقه‌مندی */}
             <Box sx={{ mt: 4 }}>
               <Button
                 variant="contained"
@@ -264,7 +290,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ code }) => {
                 variant="outlined"
                 color="secondary"
                 startIcon={<Favorite />}
-                onClick={handleAddToFavorites} // افزودن به علاقه‌مندی‌ها
+                onClick={handleAddToFavorites}
               >
                 افزودن به علاقه‌مندی‌ها
               </Button>
@@ -274,6 +300,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ code }) => {
 
         <Divider sx={{ my: 4 }} />
 
+        {/* توضیحات محصول */}
         <Box sx={{ mt: 4 }}>
           <Typography variant="h6" gutterBottom>
             توضیحات محصول:
@@ -285,11 +312,11 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ code }) => {
 
         <Divider sx={{ my: 4 }} />
 
+        {/* نظرات کاربران */}
         <Box sx={{ mt: 4 }}>
           <Typography variant="h6" gutterBottom>
             نظرات کاربران:
           </Typography>
-
           <Box sx={{ my: 2 }}>
             {comments.length > 0 ? (
               comments.map((comment, index) => (
@@ -306,7 +333,6 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ code }) => {
               </Typography>
             )}
           </Box>
-
           <Box sx={{ mt: 2 }}>
             <TextField
               label="نظر خود را بنویسید"
