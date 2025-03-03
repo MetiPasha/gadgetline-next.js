@@ -13,6 +13,7 @@ import { LocalOffer, ShoppingCart, Favorite } from "@mui/icons-material";
 import { useQuery } from "@tanstack/react-query";
 import Axios from "@/api/client-api/base";
 import { IShopProducts } from "@/api/server-api/types";
+import { useFavorites } from "@/context/FavoriteContext"; // وارد کردن useFavorites
 
 async function getProductByCode(code: string): Promise<IShopProducts> {
   const res = await Axios.get(`/products/${code}`);
@@ -32,6 +33,8 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ code }) => {
     queryKey: ["product", code],
     queryFn: () => getProductByCode(code),
   });
+
+  const { addToFavorites } = useFavorites();
 
   const [mainImage, setMainImage] = useState<string>("");
   const [selectedColor, setSelectedColor] = useState<string>("");
@@ -66,8 +69,12 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ code }) => {
       setNewComment("");
     }
   };
-  console.log("Badge Title:", product.badges?.title);
-  console.log("Product Specifications:", product.specifications);
+
+  const handleAddToFavorites = () => {
+    if (product) {
+      addToFavorites(product);
+    }
+  };
 
   return (
     <Box sx={{ p: 4 }}>
@@ -257,6 +264,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ code }) => {
                 variant="outlined"
                 color="secondary"
                 startIcon={<Favorite />}
+                onClick={handleAddToFavorites} // افزودن به علاقه‌مندی‌ها
               >
                 افزودن به علاقه‌مندی‌ها
               </Button>
