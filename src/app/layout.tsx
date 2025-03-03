@@ -5,6 +5,7 @@ import "./globals.css";
 import { Box } from "@mui/material";
 import QueryProvider from "@/components/QueryProvider";
 import { FavoriteProvider } from "@/context/FavoriteContext";
+import { CartStoreProvider } from "@/store/cartProvider";
 
 const vazir = Vazirmatn({
   variable: "--font-vazir-sans",
@@ -26,13 +27,15 @@ export default function RootLayout({
       <QueryProvider>
         <ThemeProvider>
           <FavoriteProvider>
-            <Box
-              bgcolor="background.paper"
-              className={`${vazir.variable}`}
-              component="body"
-            >
-              {children}
-            </Box>
+            <CartStoreProvider>
+              <Box
+                bgcolor="background.paper"
+                className={`${vazir.variable}`}
+                component="body"
+              >
+                {children}
+              </Box>
+            </CartStoreProvider>
           </FavoriteProvider>
         </ThemeProvider>
       </QueryProvider>

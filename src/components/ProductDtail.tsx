@@ -20,6 +20,8 @@ import { useQuery } from "@tanstack/react-query";
 import Axios from "@/api/client-api/base";
 import { IShopProducts } from "@/api/server-api/types";
 import { useFavorites } from "@/context/FavoriteContext";
+// اضافه کردن import برای استفاده از store سبد خرید
+import { useCartStore } from "@/store/cartProvider";
 
 async function getProductByCode(code: string): Promise<IShopProducts> {
   const res = await Axios.get(`/products/${code}`);
@@ -41,6 +43,9 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ code }) => {
   });
 
   const { addToFavorites } = useFavorites();
+
+  // گرفتن متد افزایش آیتم از سبد خرید
+  const incrementItemCount = useCartStore((state) => state.incrementItemCount);
 
   const [mainImage, setMainImage] = useState<string>("");
   const [selectedColor, setSelectedColor] = useState<string>("");
@@ -81,6 +86,27 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ code }) => {
     }
   };
 
+  // اضافه کردن handler برای افزودن محصول به سبد خرید
+  const handleAddToCart = () => {
+    // چک کردن انتخاب رنگ (در صورتی که رنگ‌ها الزامی هستند)
+    if (!selectedColor) {
+      alert("لطفاً یک رنگ انتخاب کنید.");
+      return;
+    }
+    if (product) {
+      // توجه کنید که در ساختار order item، اطلاعات seller باید موجود باشد.
+      // در اینجا فرض شده که product.bestSeller شامل اطلاعات فروشنده (SellerInfo) است.
+      const orderItem = {
+        product: product,
+        productSeller: product.bestSeller, // اطمینان حاصل کنید که این فیلد مطابق با نوع SellerInfo باشد
+        color: selectedColor,
+        quantity: 1,
+      };
+      // فراخوانی متد افزودن به سبد خرید
+      incrementItemCount(orderItem);
+    }
+  };
+
   return (
     <Box sx={{ p: 4 }}>
       <Paper
@@ -108,8 +134,8 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ code }) => {
                 alt={product.titleFa}
                 sx={{
                   width: "100%",
-                  maxHeight: "300px", // ارتفاع محدود شده
-                  objectFit: "contain", // حفظ نسبت ابعاد
+                  maxHeight: "300px",
+                  objectFit: "contain",
                   borderRadius: 2,
                   marginBottom: 2,
                   boxShadow: "0px 4px 10px rgba(0,0,0,0.1)",
@@ -283,6 +309,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ code }) => {
                 color="primary"
                 startIcon={<ShoppingCart />}
                 sx={{ mr: 2 }}
+                onClick={handleAddToCart}
               >
                 افزودن به سبد خرید
               </Button>
