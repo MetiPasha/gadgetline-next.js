@@ -15,7 +15,7 @@ import {
   useTheme,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { AccountCircle, ShoppingCart } from "@mui/icons-material";
+import { AccountCircle, ShoppingCart, Favorite } from "@mui/icons-material"; // Import the Favorite icon
 import Cart from "@/components/Cart";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -54,6 +54,10 @@ const Header = () => {
 
   const handleLoginClick = () => {
     router.push("/auth/login");
+  };
+
+  const handleFavoritesClick = () => {
+    router.push("/favorites"); // Redirect to favorites page
   };
 
   return (
@@ -147,6 +151,24 @@ const Header = () => {
               marginLeft: 2,
             }}
           >
+            <IconButton color="inherit" onClick={handleFavoritesClick}>
+              <Favorite />
+            </IconButton>
+            <Typography
+              variant="body2"
+              sx={{ fontSize: "0.75rem", color: theme.palette.secondary.light }}
+            >
+              علاقه‌مندی‌ها
+            </Typography>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              marginLeft: 2,
+            }}
+          >
             <IconButton color="inherit" onClick={handleLoginClick}>
               <AccountCircle />
             </IconButton>
@@ -157,6 +179,8 @@ const Header = () => {
               ورود/ثبت نام
             </Typography>
           </Box>
+
+          {/* اضافه کردن دکمه علاقه‌مندی */}
 
           <Box
             sx={{
