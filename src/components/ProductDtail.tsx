@@ -96,12 +96,14 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ code }) => {
     if (product) {
       // توجه کنید که در ساختار order item، اطلاعات seller باید موجود باشد.
       // در اینجا فرض شده که product.bestSeller شامل اطلاعات فروشنده (SellerInfo) است.
+
       const orderItem = {
         product: product,
-        productSeller: product.bestSeller, // اطمینان حاصل کنید که این فیلد مطابق با نوع SellerInfo باشد
+        productSeller: product.bestSeller ?? { lastPrice: 0, discount: 0 }, // مقدار پیش‌فرض
         color: selectedColor,
         quantity: 1,
       };
+
       // فراخوانی متد افزودن به سبد خرید
       incrementItemCount(orderItem);
     }

@@ -42,18 +42,13 @@ const CartPage = () => {
             alignItems: "center",
           }}
         >
-          <Image
-            src={"/empty.jpg"}
-            alt="empty-cart"
-            width={400}
-            height={400}
-          ></Image>
+          <Image src={"/empty.jpg"} alt="empty-cart" width={400} height={400} />
           <Typography variant="h5" color="text.secondary">
             سبد خرید شما خالی است.
           </Typography>
 
           <Typography sx={{ paddingTop: "10px" }}>
-            برای مشاهده محصولات بیشتر به صفحه
+            برای مشاهده محصولات بیشتر به صفحه{" "}
             <Link
               href="/products"
               style={{
@@ -61,18 +56,20 @@ const CartPage = () => {
                 textDecoration: "none",
               }}
             >
-              {" "}
-              محصولات{" "}
-            </Link>
-            بروید
+              محصولات
+            </Link>{" "}
+            بروید.
           </Typography>
         </Box>
       ) : (
         <>
           <Box sx={{ flex: 1, overflowY: "auto", pr: 1 }}>
-            {cartItems.map((item) => {
+            {cartItems.map((item, index) => {
               return (
-                <Card key={item.product.id} sx={{ mb: 2, display: "flex" }}>
+                <Card
+                  key={`${item.product.code}-${index}`} // ✅ رفع مشکل کلید تکراری
+                  sx={{ mb: 2, display: "flex" }}
+                >
                   <CardMedia
                     component="img"
                     sx={{ width: 120, height: 120 }}
@@ -82,9 +79,14 @@ const CartPage = () => {
                   <CardContent sx={{ flex: 1 }}>
                     <Typography variant="h6">{item.product.titleFa}</Typography>
 
+                    {/* ✅ بررسی مقدار قبل از toLocaleString() */}
                     <ProductPrice
-                      price={item.productSeller.lastPrice}
-                      discount={item.productSeller.discount}
+                      price={
+                        item.productSeller?.lastPrice
+                          ? Number(item.productSeller.lastPrice)
+                          : 0
+                      }
+                      discount={item.productSeller?.discount ?? 0}
                     />
 
                     <Box sx={{ display: "flex", alignItems: "center", mt: 1 }}>
