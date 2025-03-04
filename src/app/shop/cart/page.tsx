@@ -67,7 +67,7 @@ const CartPage = () => {
             {cartItems.map((item, index) => {
               return (
                 <Card
-                  key={`${item.product.code}-${index}`} // ✅ رفع مشکل کلید تکراری
+                  key={`${item.product.code}-${index}`}
                   sx={{ mb: 2, display: "flex" }}
                 >
                   <CardMedia
