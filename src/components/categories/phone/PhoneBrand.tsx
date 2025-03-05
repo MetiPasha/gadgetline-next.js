@@ -15,7 +15,6 @@ const PhoneBrand = () => {
 
   return (
     <Box sx={{ maxWidth: "1200px", margin: "auto", padding: "2rem 1rem" }}>
-      {/* بنر اصلی */}
       <Box
         sx={{
           display: "flex",
@@ -56,8 +55,8 @@ const PhoneBrand = () => {
               <Link href={`/categories/phone/${brand}`} passHref>
                 <Card
                   sx={{
-                    width: "300px", // ✅ اندازه بزرگتر
-                    height: "120px", // ✅ اندازه بزرگتر
+                    width: "300px",
+                    height: "120px",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",

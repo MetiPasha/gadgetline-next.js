@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import {
   Container,
@@ -10,8 +11,32 @@ import {
   FormControlLabel,
 } from "@mui/material";
 import Link from "next/link";
+import { useCartStore } from "@/store/cartProvider";
 
 const PaymentPage: React.FC = () => {
+  const cartItems = useCartStore((state) => state.items);
+
+  // محاسبه قیمت کل کالاها بدون تخفیف
+  const totalPrice = cartItems.reduce(
+    (sum, item) =>
+      sum + Number(item.productSeller?.lastPrice || 0) * item.quantity,
+    0
+  );
+
+  // محاسبه مقدار تخفیف
+  const totalDiscount = cartItems.reduce(
+    (sum, item) =>
+      sum +
+      ((Number(item.productSeller?.lastPrice || 0) *
+        (item.productSeller?.discount ?? 0)) /
+        100) *
+        item.quantity,
+    0
+  );
+
+  // محاسبه مبلغ نهایی قابل پرداخت
+  const payableAmount = totalPrice - totalDiscount;
+
   return (
     <Container maxWidth="xl" sx={{ mt: 4 }}>
       {/* Header */}
@@ -69,7 +94,9 @@ const PaymentPage: React.FC = () => {
       {/* Payment Details */}
       <Card sx={{ mt: 3, boxShadow: 3 }}>
         <CardContent>
-          <Typography variant="body1">قیمت کالاها: ۴,۰۰۰,۰۰۰ تومان</Typography>
+          <Typography variant="body1">
+            قیمت کالاها: {totalPrice.toLocaleString()} تومان
+          </Typography>
           <Typography variant="body1">
             قیمت اشتراک پلاس: ۴۹۱,۱۰۰ تومان
           </Typography>
@@ -77,13 +104,14 @@ const PaymentPage: React.FC = () => {
             ارسال: رایگان
           </Typography>
           <Typography variant="body1" color="error.main">
-            تخفیف کالاها: ۲۵۱,۰۰۰ تومان
+            تخفیف کالاها: {totalDiscount.toLocaleString()} تومان
           </Typography>
           <Typography variant="body1" color="success.main">
-            سود شما از خرید: ۲۵۱,۰۰۰ تومان (۱۱٪)
+            سود شما از خرید: {totalDiscount.toLocaleString()} تومان (
+            {((totalDiscount / totalPrice) * 100).toFixed(0)}٪)
           </Typography>
           <Typography variant="h5" fontWeight={600} mt={2}>
-            مبلغ قابل پرداخت: ۲,۵۶۸,۱۰۰ تومان
+            مبلغ قابل پرداخت: {payableAmount.toLocaleString()} تومان
           </Typography>
 
           <Link href="/payment/success" passHref>

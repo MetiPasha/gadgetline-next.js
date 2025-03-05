@@ -1,6 +1,6 @@
 import React from "react";
 import { Box } from "@mui/material";
-import LaptopCard from "../LaptopCard";
+import LaptopCard from "../MobileCard";
 
 const LaptopList = ({}) => {
   const products = [
@@ -41,7 +41,7 @@ const LaptopList = ({}) => {
   return (
     <Box
       display="flex"
-      gap={3}
+      gap={2}
       justifyContent="center"
       flexWrap="wrap"
       mt={5}

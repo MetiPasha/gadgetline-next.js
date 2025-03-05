@@ -92,6 +92,7 @@ const Hero: React.FC = () => {
             <Button
               variant="contained"
               sx={{
+                borderRadius: "8px",
                 padding: "0.5rem 2rem", // Padding inside the button
                 marginLeft: "1rem", // Left margin for the button
                 backgroundColor: theme.palette.primary.main, // Button background color

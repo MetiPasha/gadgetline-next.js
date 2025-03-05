@@ -34,20 +34,18 @@ const MobileCard: React.FC<ProductCardProps> = ({
   return (
     <Card
       sx={{
-        maxWidth: 300,
-        boxShadow: 3,
+        maxWidth: 320, // افزایش سایز کارت
         borderRadius: 2,
         ml: 10,
-        transition: "box-shadow 0.3s ease",
+        transition: "transform 0.3s ease",
         "&:hover": {
           animation: `${bounceAnimation} 0.6s ease`,
-          boxShadow: "0 8px 20px rgba(0, 123, 255, 0.3)",
         },
       }}
     >
       <CardMedia
         component="img"
-        height="200"
+        height="270"
         image={image}
         alt={title}
         sx={{
@@ -67,7 +65,7 @@ const MobileCard: React.FC<ProductCardProps> = ({
           color="primary"
           fontWeight="bold"
           mt={1}
-          ml={14}
+          ml={16}
         >
           {price} تومان
         </Typography>

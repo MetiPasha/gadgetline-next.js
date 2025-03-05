@@ -47,7 +47,7 @@ const SellerNavbar = () => {
   const { isDrawerOpen, toggleDrawer } = useDrawer();
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex", overflowX: "hidden" }}>
       {/* Navbar */}
       <AppBar
         position="static"

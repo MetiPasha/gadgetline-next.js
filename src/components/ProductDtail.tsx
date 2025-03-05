@@ -239,14 +239,12 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ code }) => {
                 )}{" "}
                 تومان
               </Typography>
-              {product.badges && (
-                <Chip
-                  icon={<LocalOffer />}
-                  label="تخفیف ویژه"
-                  color="secondary"
-                  sx={{ mt: 1 }}
-                />
-              )}
+              <Chip
+                icon={<LocalOffer />}
+                label={`تخفیف ${product.bestSeller?.discount ?? 0}%`}
+                color="secondary"
+                sx={{ mt: 1 }}
+              />
             </Box>
 
             <Divider sx={{ my: 2 }} />

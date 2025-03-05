@@ -11,83 +11,84 @@ const Product: React.FC = () => {
     <Container
       sx={{
         display: "flex",
-        justifyContent: "center", // Center align the content horizontally
-        alignItems: "center", // Center align the content vertically
-        direction: "rtl", // Set text direction to right-to-left
+        justifyContent: "center",
+        alignItems: "center",
+        direction: "rtl",
       }}
     >
-      {/* Product Image */}
-      <Image
-        src="/assets/home/image-product.jpg" // Path to the product image
-        width={500} // Width of the image
-        height={500} // Height of the image
-        alt="Headphones" // Alt text for the image for accessibility
-      />
+      {/* Product Image with Border Radius */}
+      <Box sx={{ borderRadius: "8px", overflow: "hidden" }}>
+        <Image
+          src="/assets/home/image-product.jpg"
+          width={500}
+          height={500}
+          alt="Headphones"
+          style={{ borderRadius: "8px" }} // Border-radius for image
+        />
+      </Box>
 
       <Box
         sx={{
           display: "flex",
-          flexDirection: "column", // Arrange content vertically
-          height: "70vh", // Set the height of the content box
-          width: "30vw", // Set the width of the content box
-          justifyContent: "center", // Center the content vertically within the Box
-          marginRight: "8rem", // Add space on the right side
+          flexDirection: "column",
+          height: "70vh",
+          width: "30vw",
+          justifyContent: "center",
+          marginRight: "8rem",
         }}
       >
-        {/* Title for the product */}
         <Typography
           sx={{
-            transform: "uppercase", // Make the text uppercase
-            fontSize: "1.5rem", // Set the font size
-            color: "#4f4f4f", // Set the color of the text
-            marginBottom: "1rem", // Add margin to the bottom
-            textAlign: "left", // Align text to the left
+            textTransform: "uppercase",
+            fontSize: "1.5rem",
+            color: "#4f4f4f",
+            marginBottom: "1rem",
+            textAlign: "left",
           }}
-          variant="h3" // Set the typography variant for header
+          variant="h3"
         >
           محصول جدید
         </Typography>
 
-        {/* Main product name */}
         <Typography
           sx={{
-            fontWeight: "700", // Make the text bold
-            margin: "1rem", // Add margin around the text
-            marginBottom: "1rem", // Add specific bottom margin
-            fontSize: "3.5rem", // Set the font size for the product name
-            textAlign: "left", // Align the product name to the left
+            fontWeight: "700",
+            margin: "1rem",
+            marginBottom: "1rem",
+            fontSize: "3.5rem",
+            textAlign: "left",
           }}
-          variant="h1" // Set the typography variant for main heading
+          variant="h1"
         >
           هدفون xx99 mark
         </Typography>
 
-        {/* Product description */}
         <Typography
           sx={{
-            fontSize: "2rem", // Set font size for the description
-            marginBottom: "1rem", // Add bottom margin
-            textAlign: "left", // Align text to the left
+            fontSize: "2rem",
+            marginBottom: "1rem",
+            textAlign: "left",
           }}
-          variant="body1" // Set the typography variant for body text
+          variant="body1"
         >
           یکی از جدید ترین و پر قدرت های این روز ها هدفون مارک با کیفیت و قیمتی
           باورنکردنی همین حالا خریداری کنید
         </Typography>
 
-        {/* Button to view the product */}
+        {/* Button with Border Radius */}
         <Box
           sx={{ display: "flex", alignItems: "center", marginRight: "2rem" }}
         >
           <Link href="/product" passHref legacyBehavior>
             <a>
               <Button
-                variant="contained" // Button variant for filled button
+                variant="contained"
                 sx={{
-                  backgroundColor: theme.palette.primary.main, // Set button background color from the theme
-                  color: theme.palette.common.white, // Set the text color to white
+                  backgroundColor: theme.palette.primary.main,
+                  color: theme.palette.common.white,
+                  borderRadius: "8px", // Border-radius for button
                   "&:hover": {
-                    backgroundColor: theme.palette.primary.dark, // Change background color on hover
+                    backgroundColor: theme.palette.primary.dark,
                   },
                 }}
               >

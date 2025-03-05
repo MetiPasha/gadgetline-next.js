@@ -121,6 +121,7 @@ const Header = () => {
               onChange={handleSearchChange}
               placeholder="جستجو در گجت لاین..."
               sx={{
+                borderRadius: "12px",
                 background: theme.palette.background.default,
                 marginLeft: 2,
                 flexGrow: 1,
@@ -152,14 +153,8 @@ const Header = () => {
             }}
           >
             <IconButton color="inherit" onClick={handleFavoritesClick}>
-              <Favorite />
+              <Favorite sx={{ fontSize: "1.7rem" }} />
             </IconButton>
-            <Typography
-              variant="body2"
-              sx={{ fontSize: "0.75rem", color: theme.palette.secondary.light }}
-            >
-              علاقه‌مندی‌ها
-            </Typography>
           </Box>
           <Box
             sx={{
@@ -170,14 +165,8 @@ const Header = () => {
             }}
           >
             <IconButton color="inherit" onClick={handleLoginClick}>
-              <AccountCircle />
+              <AccountCircle sx={{ fontSize: "1.7rem" }} />
             </IconButton>
-            <Typography
-              variant="body2"
-              sx={{ fontSize: "0.75rem", color: theme.palette.secondary.light }}
-            >
-              ورود/ثبت نام
-            </Typography>
           </Box>
 
           {/* اضافه کردن دکمه علاقه‌مندی */}
@@ -192,15 +181,9 @@ const Header = () => {
           >
             <IconButton color="inherit" onClick={toggleCart}>
               <Badge badgeContent={cartItems} color="error">
-                <ShoppingCart />
+                <ShoppingCart sx={{ fontSize: "1.7rem" }} />
               </Badge>
             </IconButton>
-            <Typography
-              variant="body2"
-              sx={{ fontSize: "0.75rem", color: theme.palette.secondary.light }}
-            >
-              سبد خرید
-            </Typography>
           </Box>
         </Box>
       </Toolbar>

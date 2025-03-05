@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Box, Grid, Typography, CircularProgress } from "@mui/material";
-import LaptopCard from "@/components/LaptopCard";
+import LaptopCard from "@/components/ProductCard";
 import { useQuery } from "@tanstack/react-query";
 import Axios from "@/api/client-api/base";
 import { IShopProducts, PaginatedResultApi } from "@/api/server-api/types";
