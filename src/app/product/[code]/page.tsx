@@ -16,7 +16,7 @@
 
 "use client";
 import Header from "@/components/home/Header";
-import ProductDetailll from "@/components/ProductDtail";
+import ProductDetail from "@/components/ProductDtail";
 import { Box } from "@mui/material";
 import { useParams } from "next/navigation";
 
@@ -28,7 +28,7 @@ const ProductPage = () => {
   return (
     <Box>
       <Header />
-      <ProductDetailll code={params.code} />
+      <ProductDetail code={params.code} />
     </Box>
   );
 };

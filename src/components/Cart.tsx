@@ -2,61 +2,74 @@ import { Box, Typography } from "@mui/material";
 import Link from "next/link";
 import Button from "@/components/Button";
 import Image from "next/image";
-
-interface CartItem {
-  id: number;
-  name: string;
-  price: number;
-  image: string;
-  quantity: number;
-}
+import { IShopProducts } from "@/api/server-api/types"; // وارد کردن تایپ IShopProducts
 
 interface CartProps {
-  cartItems: CartItem[];
+  cartItems: (IShopProducts & { quantity: number })[]; // استفاده از ترکیب IShopProducts و quantity
 }
 
 const Cart = ({ cartItems = [] }: CartProps) => {
+  // محاسبه جمع کل سبد خرید
   const total = cartItems.reduce(
-    (acc, item) => acc + item.price * item.quantity,
+    (acc, item) => acc + (item.bestSeller?.lastPrice || 0) * item.quantity, // از lastPrice برای محاسبه استفاده می‌شود
     0
   );
 
+  // قالب‌بندی جمع کل
+  const formattedTotal = new Intl.NumberFormat("fa-IR").format(total);
+
   return (
     <Box>
-      <Typography variant="h6">سبد خرید</Typography>
+      <Typography variant="h6" sx={{ marginBottom: "1rem", fontWeight: 700 }}>
+        سبد خرید
+      </Typography>
 
       {cartItems.length === 0 ? (
-        <Typography variant="body2">سبد خرید شما خالی است</Typography>
+        <Typography variant="body2" color="textSecondary">
+          سبد خرید شما خالی است
+        </Typography>
       ) : (
         cartItems.map((item) => (
           <Box
-            key={item.id}
+            key={item.id} // استفاده از id به عنوان کلید
             sx={{
               display: "flex",
               margin: "1rem 0",
               justifyContent: "space-between",
+              borderBottom: "1px solid #ddd",
+              paddingBottom: "1rem",
             }}
           >
             <Box sx={{ display: "flex" }}>
-              <Image src={item.image} width={50} height={50} alt={item.name} />
+              <Image
+                src={item.images.main}
+                width={50}
+                height={50}
+                alt={item.titleFa}
+                style={{ borderRadius: "4px" }}
+              />
               <Box
                 sx={{
                   display: "flex",
                   flexDirection: "column",
-                  marginRight: "1rem",
+                  marginLeft: "1rem",
                 }}
               >
-                <Typography variant="body1" sx={{ marginLeft: "0.3rem" }}>
-                  {item.name}
+                <Typography variant="body1" sx={{ fontWeight: 600 }}>
+                  {item.titleFa}
                 </Typography>
                 <Typography
                   variant="body2"
-                  sx={{ color: "#6f7275", marginLeft: "0.3rem" }}
+                  sx={{ color: "#6f7275", marginTop: "0.5rem" }}
                 >
-                  ${item.price}
+                  {new Intl.NumberFormat("fa-IR").format(
+                    item.bestSeller?.lastPrice ?? 0
+                  )}{" "}
+                  تومان
                 </Typography>
               </Box>
             </Box>
+
             <Box
               sx={{
                 display: "flex",
@@ -64,7 +77,9 @@ const Cart = ({ cartItems = [] }: CartProps) => {
                 alignItems: "flex-start",
               }}
             >
-              <Typography sx={{ fontSize: "0.75rem" }}>تعداد</Typography>
+              <Typography sx={{ fontSize: "0.75rem", color: "#6f7275" }}>
+                تعداد
+              </Typography>
               <Typography variant="body1" sx={{ fontWeight: 800 }}>
                 {item.quantity}
               </Typography>
@@ -73,9 +88,15 @@ const Cart = ({ cartItems = [] }: CartProps) => {
         ))
       )}
 
-      <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-        <Typography>جمع کل</Typography>
-        <Typography>{total}تومان</Typography>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          marginTop: "1rem",
+        }}
+      >
+        <Typography sx={{ fontWeight: 700 }}>جمع کل</Typography>
+        <Typography sx={{ fontWeight: 700 }}>{formattedTotal} تومان</Typography>
       </Box>
 
       <Button
@@ -90,7 +111,10 @@ const Cart = ({ cartItems = [] }: CartProps) => {
       >
         <Link
           href="/shop/cart"
-          style={{ color: "white", textDecoration: "none" }}
+          style={{
+            color: "white",
+            textDecoration: "none",
+          }}
         >
           پرداخت
         </Link>

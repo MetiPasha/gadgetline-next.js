@@ -52,21 +52,22 @@ const Footer: React.FC = () => {
           >
             {/* Navigation Links */}
             <Link
-              href="/"
+              href="/support"
               style={{ marginRight: "2rem", fontWeight: 700 }}
               passHref
             >
               <IconButton sx={{ color: "white" }}>پشتیبانی</IconButton>
             </Link>
             <Link
-              href="/"
+              href="/aboutus" // تغییر مسیر از "/" به "/aboutus"
               style={{ marginRight: "2rem", fontWeight: 700 }}
               passHref
             >
               <IconButton sx={{ color: "white" }}>درباره ما</IconButton>
             </Link>
+
             <Link
-              href="/"
+              href="/categories/all"
               style={{ marginRight: "2rem", fontWeight: 700 }}
               passHref
             >

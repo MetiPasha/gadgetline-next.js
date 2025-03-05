@@ -27,7 +27,7 @@ const Dashboard: React.FC = () => {
         }}
       >
         {/* Devices icon on the left */}
-        <DevicesIcon sx={{ fontSize: 24, color: "aqua" }} />
+        <DevicesIcon sx={{ fontSize: 24, color: "lightblue" }} />
 
         {/* Icons and their labels (Laptop, Headphones, Smartphone) */}
         <ul
@@ -131,7 +131,7 @@ const Dashboard: React.FC = () => {
         </ul>
 
         {/* Devices icon on the right */}
-        <DevicesOtherIcon sx={{ fontSize: 24, color: "aqua" }} />
+        <DevicesOtherIcon sx={{ fontSize: 24, color: "lightblue" }} />
       </Container>
     </Box>
   );

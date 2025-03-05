@@ -94,17 +94,13 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ code }) => {
       return;
     }
     if (product) {
-      // توجه کنید که در ساختار order item، اطلاعات seller باید موجود باشد.
-      // در اینجا فرض شده که product.bestSeller شامل اطلاعات فروشنده (SellerInfo) است.
-
       const orderItem = {
         product: product,
-        productSeller: product.bestSeller ?? { lastPrice: 0, discount: 0 }, // مقدار پیش‌فرض
+        productSeller: product.bestSeller ?? { lastPrice: 0, discount: 0 },
         color: selectedColor,
         quantity: 1,
       };
 
-      // فراخوانی متد افزودن به سبد خرید
       incrementItemCount(orderItem);
     }
   };
@@ -136,11 +132,10 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ code }) => {
                 alt={product.titleFa}
                 sx={{
                   width: "100%",
-                  maxHeight: "300px",
+                  maxHeight: "500px",
                   objectFit: "contain",
                   borderRadius: 2,
                   marginBottom: 2,
-                  boxShadow: "0px 4px 10px rgba(0,0,0,0.1)",
                 }}
               />
             ) : (
@@ -184,10 +179,10 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ code }) => {
 
           {/* بخش جزئیات محصول */}
           <Box sx={{ flex: 1 }}>
-            <Typography variant="h4" gutterBottom>
+            <Typography variant="h2" gutterBottom>
               {product.titleFa}
             </Typography>
-            <Typography variant="subtitle1" color="text.secondary" gutterBottom>
+            <Typography variant="h5" color="text.secondary" gutterBottom>
               {product.titleEn}
             </Typography>
 
@@ -212,7 +207,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ code }) => {
                   py: 0.5,
                 }}
               >
-                <Typography variant="subtitle2" color="text.primary">
+                <Typography variant="subtitle1" color="text.primary">
                   ۵۰ دیدگاه
                 </Typography>
               </Box>
@@ -225,7 +220,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ code }) => {
                   py: 0.5,
                 }}
               >
-                <Typography variant="subtitle2" color="text.primary">
+                <Typography variant="subtitle1" color="text.primary">
                   ۳۵ پرسش
                 </Typography>
               </Box>
@@ -233,7 +228,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ code }) => {
 
             {/* قیمت و تخفیف */}
             <Box sx={{ my: 2 }}>
-              <Typography variant="h5" color="primary">
+              <Typography variant="h4" color="primary">
                 {Number(product.bestSeller?.lastPrice ?? 0).toLocaleString(
                   "fa-IR"
                 )}{" "}
@@ -271,7 +266,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ code }) => {
 
             {/* رنگ‌بندی محصول */}
             <Box sx={{ my: 2 }}>
-              <Typography variant="h6" gutterBottom>
+              <Typography variant="h5" gutterBottom>
                 رنگ‌بندی محصول:
               </Typography>
               <Box sx={{ display: "flex", gap: 2 }}>

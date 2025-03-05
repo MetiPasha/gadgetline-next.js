@@ -79,7 +79,6 @@ const CartPage = () => {
                   <CardContent sx={{ flex: 1 }}>
                     <Typography variant="h6">{item.product.titleFa}</Typography>
 
-                    {/* ✅ بررسی مقدار قبل از toLocaleString() */}
                     <ProductPrice
                       price={
                         item.productSeller?.lastPrice
