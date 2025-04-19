@@ -110,7 +110,7 @@ const Cart = ({ cartItems = [] }: CartProps) => {
         }}
       >
         <Link
-          href="/shop/cart"
+          href="/cart"
           style={{
             color: "white",
             textDecoration: "none",

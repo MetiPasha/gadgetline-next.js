@@ -24,21 +24,19 @@ export default function RootLayout({
 }>) {
   return (
     <html dir="rtl" lang="fa">
-      <QueryProvider>
-        <ThemeProvider>
-          <FavoriteProvider>
-            <CartStoreProvider>
-              <Box
-                bgcolor="background.paper"
-                className={`${vazir.variable}`}
-                component="body"
-              >
-                {children}
-              </Box>
-            </CartStoreProvider>
-          </FavoriteProvider>
-        </ThemeProvider>
-      </QueryProvider>
+      <ThemeProvider>
+        <FavoriteProvider>
+          <CartStoreProvider>
+            <Box
+              bgcolor="background.paper"
+              className={`${vazir.variable}`}
+              component="body"
+            >
+              <QueryProvider>{children}</QueryProvider>
+            </Box>
+          </CartStoreProvider>
+        </FavoriteProvider>
+      </ThemeProvider>
     </html>
   );
 }

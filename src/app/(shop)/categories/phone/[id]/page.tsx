@@ -1,7 +1,7 @@
 "use client";
 import FilterSidebar from "@/components/categories/FilterSidebar";
 import ByBrands from "@/components/ByBrands";
-import Header from "@/components/home/Header";
+// import Header from "@/components/home/Header";
 
 import { Box } from "@mui/material";
 import { useParams } from "next/navigation";
@@ -9,11 +9,11 @@ import { useParams } from "next/navigation";
 const LaptopBrandPage = () => {
   const param = useParams() as { id: string };
 
-  console.log("Brand ID:", param.id);
+  console.log("Brand ID:", param.id); // ✅ چک کردن مقدار `id`
 
   return (
     <Box>
-      <Header />
+      {/* <Header /> */}
       <ByBrands params={param} />
       <FilterSidebar />
     </Box>
@@ -31,5 +31,6 @@ export default LaptopBrandPage;
 // return (
 //   // <Box>
 //   //   <Typography variant="h4">برند: {id}</Typography>
+//   //   {/* اینجا می‌تونی کامپوننت نمایش محصولات رو اضافه کنی */}
 //   // </Box>
 // );
